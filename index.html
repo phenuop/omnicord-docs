@@ -35,12 +35,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="canonical" href="https://docs.omnicord.site">
 </head>
 <body>
 
-    <button class="omnitrix-toggle" id="omnitrixToggle">
+    <button class="omnitrix-toggle" id="omnitrixToggle" aria-label="Toggle navigation">
         <span class="toggle-ring"></span>
         <img src="https://vectorfilelogo.com/wp-content/uploads/2025/07/Ben-10-Omnitrix-logo-Red.png" alt="Omnitrix" id="omnitrixIcon">
     </button>
@@ -135,7 +135,10 @@
             <div class="doc-section">
                 <h2><i class="fas fa-user-plus"></i> Step 1: Register</h2>
                 <p>Before you can do anything, you need to register with Omnicord. This creates your profile and unlocks all features.</p>
-                <div class="command-box">.register</div>
+                <div class="command-box" onclick="copyToClipboard('.register')">
+                    <code>.register</code>
+                    <span class="copy-hint"><i class="fas fa-copy"></i> Click to copy</span>
+                </div>
                 <div class="tip-box">
                     <i class="fas fa-lightbulb"></i>
                     <p>You only need to register once! After that, all your progress is saved automatically.</p>
@@ -146,9 +149,9 @@
                 <h2><i class="fas fa-egg"></i> Step 2: Get Your First Alien</h2>
                 <p>Everyone starts with a Starter Box that contains your first alien.</p>
                 <ol>
-                    <li>Use <code>.open starter</code> to open your Starter Box</li>
+                    <li>Use <code onclick="copyToClipboard('.open starter')">.open starter</code> to open your Starter Box</li>
                     <li>You'll receive a random alien from the starter pool</li>
-                    <li>Use <code>.aliens</code> to view your collection</li>
+                    <li>Use <code onclick="copyToClipboard('.aliens')">.aliens</code> to view your collection</li>
                 </ol>
                 <div class="tip-box">
                     <i class="fas fa-lightbulb"></i>
@@ -160,10 +163,10 @@
                 <h2><i class="fas fa-gamepad"></i> Step 3: Start Playing</h2>
                 <p>With your first alien, you can now:</p>
                 <ul>
-                    <li><strong>Battle</strong> other players with <code>.battle</code></li>
+                    <li><strong>Battle</strong> other players with <code onclick="copyToClipboard('.battle')">.battle</code></li>
                     <li><strong>Level up</strong> your alien by fighting villains</li>
-                    <li><strong>Earn rewards</strong> from <code>.vote</code> and daily events</li>
-                    <li><strong>Join or create</strong> a guild with <code>.createguild</code></li>
+                    <li><strong>Earn rewards</strong> from <code onclick="copyToClipboard('.vote')">.vote</code> and daily events</li>
+                    <li><strong>Join or create</strong> a guild with <code onclick="copyToClipboard('.createguild')">.createguild</code></li>
                 </ul>
             </div>
 
@@ -188,35 +191,44 @@
                 <p>A villain appears in your chat every <strong>24 messages</strong>. When a villain spawns, fight it using the battle system. Upon defeating a villain, there is a <strong>random chance</strong> you'll receive a fragment for a specific alien.</p>
 
                 <h3>Method 2: Luck Spin</h3>
-                <p>Use the <code>.luckspin</code> command for a chance to win complete alien unlocks, alien fragments, and other rewards. This is one of the fastest ways to get rare aliens.</p>
-                <div class="command-box">.luckspin</div>
+                <p>Use the <code onclick="copyToClipboard('.luckspin')">.luckspin</code> command for a chance to win complete alien unlocks, alien fragments, and other rewards. This is one of the fastest ways to get rare aliens.</p>
+                <div class="command-box" onclick="copyToClipboard('.luckspin')">
+                    <code>.luckspin</code>
+                    <span class="copy-hint"><i class="fas fa-copy"></i> Click to copy</span>
+                </div>
 
                 <h3>Method 3: Vote Boxes</h3>
-                <p>Support the bot by using <code>.vote</code>. Each vote gives you a vote box that can contain alien fragments, complete unlocks, Tyden, and more.</p>
+                <p>Support the bot by using <code onclick="copyToClipboard('.vote')">.vote</code>. Each vote gives you a vote box that can contain alien fragments, complete unlocks, Tyden, and more.</p>
 
                 <h3>Method 4: Trading</h3>
-                <p>Trade aliens and fragments with other players using <code>.trade</code>.</p>
+                <p>Trade aliens and fragments with other players using <code onclick="copyToClipboard('.trade')">.trade</code>.</p>
             </div>
 
             <div class="doc-section">
                 <h2><i class="fas fa-eye"></i> Tracking Your Progress</h2>
 
                 <h3>Check Alien Details</h3>
-                <p>Use <code>.detail &lt;alienName&gt;</code> to see how many fragments you need to unlock an alien.</p>
-                <div class="command-box">.detail heatblast</div>
+                <p>Use <code onclick="copyToClipboard('.detail heatblast')">.detail &lt;alienName&gt;</code> to see how many fragments you need to unlock an alien.</p>
+                <div class="command-box" onclick="copyToClipboard('.detail heatblast')">
+                    <code>.detail heatblast</code>
+                    <span class="copy-hint"><i class="fas fa-copy"></i> Click to copy</span>
+                </div>
 
                 <h3>Check Your Fragments</h3>
-                <p>Use <code>.frags</code> to see how many fragments you have collected.</p>
-                <div class="command-box">.frags</div>
-                <p>Example: <code>Heatblast: 3/6</code> — You have 3 out of 6 fragments needed.</p>
+                <p>Use <code onclick="copyToClipboard('.frags')">.frags</code> to see how many fragments you have collected.</p>
+                <div class="command-box" onclick="copyToClipboard('.frags')">
+                    <code>.frags</code>
+                    <span class="copy-hint"><i class="fas fa-copy"></i> Click to copy</span>
+                </div>
+                <p>Example: <span class="text-highlight">Heatblast: 3/6</span> — You have 3 out of 6 fragments needed.</p>
             </div>
 
             <div class="doc-section">
                 <h2><i class="fas fa-graduation-cap"></i> Example: Unlocking Heatblast</h2>
                 <ol>
-                    <li>Use <code>.detail heatblast</code> — requires <strong>6 fragments</strong></li>
-                    <li>Fight villains, use <code>.luckspin</code>, and open vote boxes</li>
-                    <li>Use <code>.frags</code> to check progress: "Heatblast: 3/6"</li>
+                    <li>Use <code onclick="copyToClipboard('.detail heatblast')">.detail heatblast</code> — requires <strong>6 fragments</strong></li>
+                    <li>Fight villains, use <code onclick="copyToClipboard('.luckspin')">.luckspin</code>, and open vote boxes</li>
+                    <li>Use <code onclick="copyToClipboard('.frags')">.frags</code> to check progress: <span class="text-highlight">"Heatblast: 3/6"</span></li>
                     <li>Once you have all 6 fragments, Heatblast unlocks automatically!</li>
                 </ol>
             </div>
@@ -235,7 +247,7 @@
             </div>
 
             <div class="search-box">
-                <input type="text" id="commandSearch" placeholder="Search commands..." onkeyup="filterCommands()">
+                <input type="text" id="commandSearch" placeholder="Search commands... (Ctrl+K to focus)" onkeyup="filterCommands()">
             </div>
 
             <div class="category-filters" id="categoryFilters">
@@ -258,6 +270,11 @@
         </div>
     </div>
 
-    <script src="js/script.js"></script>
+    <div class="toast" id="toast">
+        <span class="toast-icon"><i class="fas fa-check-circle"></i></span>
+        <span id="toastMessage">Copied!</span>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
