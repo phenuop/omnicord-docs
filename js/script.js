@@ -212,7 +212,7 @@ const commandData = [{
     }
 }, {
     name: "botinfo",
-    category: "Uncategorized",
+    category: "Info",
     description: "Display bot information and statistics including uptime, commands, and server count.",
     usage: ".botinfo",
     aliases: ["stats", "about"],
@@ -237,7 +237,7 @@ const commandData = [{
     }
 }, {
     name: "buy",
-    category: "Uncategorized",
+    category: "Economy",
     description: "Convert Tyden to Nullite.",
     usage: ".buy nullite <amount>",
     aliases: [],
@@ -262,7 +262,7 @@ const commandData = [{
     }
 }, {
     name: "chapter",
-    category: "Uncategorized",
+    category: "Game",
     description: "Progress through story chapters to earn rewards and unlock new content.",
     usage: ".chapter [start <id>]",
     aliases: [],
@@ -289,7 +289,7 @@ const commandData = [{
     }
 }, {
     name: "combine",
-    category: "Uncategorized",
+    category: "Game",
     description: "Forge a new attack by combining two base attacks using an interactive select menu system.",
     usage: ".combine",
     aliases: ["forge", "synthesize", "synthesis", "ironworks", "smith", "smitting"],
@@ -403,7 +403,7 @@ const commandData = [{
     }
 }, {
     name: "event",
-    category: "Uncategorized",
+    category: "Game",
     description: "Participate in seasonal events (Halloween, etc.).",
     usage: ".event",
     aliases: [],
@@ -493,7 +493,7 @@ const commandData = [{
     }
 }, {
     name: "friend",
-    category: "Uncategorized",
+    category: "User",
     description: "Manage your friends system including adding, blocking, and privacy settings.",
     usage: ".friend [add/requests/list/privacy/profile/block/unblock] [user]",
     aliases: [],
@@ -932,7 +932,7 @@ const commandData = [{
     ],
     detailedInfo: {
         whatItDoes: "The Luck Spin is a gacha-style feature that gives you a random reward. Spin the wheel once per day for free!",
-        possibleRewards: [
+        rewards: [
             "Complete alien unlocks",
             "Alien fragments",
             "Tyden currency",
@@ -1065,7 +1065,7 @@ const commandData = [{
     }
 }, {
     name: "ping",
-    category: "Uncategorized",
+    category: "Info",
     description: "Check the bot's latency and response time.",
     usage: ".ping",
     aliases: [],
@@ -1088,7 +1088,7 @@ const commandData = [{
     }
 }, {
     name: "profile",
-    category: "Uncategorized",
+    category: "User",
     description: "Display your profile.",
     usage: ".profile",
     aliases: ["prof", "pf"],
@@ -1143,7 +1143,7 @@ const commandData = [{
     }
 }, {
     name: "redeem",
-    category: "Uncategorized",
+    category: "Game",
     description: "Redeem a code to claim rewards.",
     usage: ".redeem <code>",
     aliases: [],
@@ -1314,7 +1314,7 @@ const commandData = [{
     }
 }, {
     name: "shop",
-    category: "Economy",
+    category: "Shop",
     description: "Buy season backgrounds, battle backgrounds, potions, and passives.",
     usage: ".shop",
     aliases: ["seasonshop", "buyseason"],
@@ -1346,7 +1346,7 @@ const commandData = [{
     }
 }, {
     name: "trade",
-    category: "User",
+    category: "Economy",
     description: "Trade Tyden, Nullite, aliens, and fragments with another user.",
     usage: ".trade <@user> or .trade <add/confirm/cancel>",
     aliases: ["t"],
@@ -1414,7 +1414,7 @@ const commandData = [{
     }
 }, {
     name: "vote",
-    category: "Uncategorized",
+    category: "Game",
     description: "Check voting status and claim rewards for voting for the bot.",
     usage: ".vote",
     aliases: [],
@@ -1452,302 +1452,313 @@ document.getElementById('genDate').textContent = new Date().toLocaleDateString('
     day: 'numeric'
 });
 
+function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Copied: ' + text, 'success');
+        }).catch(() => {
+            fallbackCopy(text);
+        });
+    } else {
+        fallbackCopy(text);
+    }
+}
+
+function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+        document.execCommand('copy');
+        showToast('Copied: ' + text, 'success');
+    } catch (err) {
+        showToast('Failed to copy', 'error');
+    }
+    document.body.removeChild(textarea);
+}
+
+function showToast(message, type) {
+    type = type || 'success';
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+    toast.className = 'toast ' + type;
+    toastMessage.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(function() {
+        toast.classList.remove('show');
+    }, 2000);
+}
+
 function buildCategoryNav() {
     const container = document.getElementById('categoryNav');
-    let html = '';
-    const icons = {
+    var html = '';
+    var icons = {
         'Combat': 'fa-crosshairs',
         'Game': 'fa-gamepad',
         'User': 'fa-user',
         'Economy': 'fa-coins',
         'Guild': 'fa-crown',
         'General': 'fa-list',
-        'Shop': 'fa-store'
+        'Shop': 'fa-store',
+        'Info': 'fa-info-circle',
+        'Settings': 'fa-sliders-h',
+        'Utility': 'fa-tools',
+        'Fun': 'fa-dice',
+        'Support': 'fa-heart'
     };
-    categories.forEach(category => {
-        const count = commandData.filter(c => c.category === category).length;
-        const icon = icons[category] || 'fa-folder';
-        html += `
-            <a onclick="showCategoryPage('${category}', this, event)">
-                <i class="fas ${icon}"></i> ${category}
-                <span class="badge">${count}</span>
-            </a>
-        `;
+    categories.forEach(function(category) {
+        var count = commandData.filter(function(c) { return c.category === category; }).length;
+        var icon = icons[category] || 'fa-folder';
+        html += '<a onclick="showCategoryPage(\'' + category + '\', this, event)"><i class="fas ' + icon + '"></i> ' + category + '<span class="badge">' + count + '</span></a>';
     });
     container.innerHTML = html;
 }
 buildCategoryNav();
 
 function buildCategoryFilters() {
-    const container = document.getElementById('categoryFilters');
-    let html = '<button class="filter-btn active" data-category="all" onclick="filterByCategory(\'all\', this, event)">All</button>';
-    categories.forEach(category => {
-        html += `<button class="filter-btn" data-category="${category}" onclick="filterByCategory('${category}', this, event)">${category}</button>`;
+    var container = document.getElementById('categoryFilters');
+    var html = '<button class="filter-btn active" data-category="all" onclick="filterByCategory(\'all\', this, event)">All</button>';
+    categories.forEach(function(category) {
+        html += '<button class="filter-btn" data-category="' + category + '" onclick="filterByCategory(\'' + category + '\', this, event)">' + category + '</button>';
     });
     container.innerHTML = html;
 }
 buildCategoryFilters();
 
-function renderCommands(commands, containerId = 'commandsList') {
-    const container = document.getElementById(containerId);
+function renderCommands(commands, containerId) {
+    containerId = containerId || 'commandsList';
+    var container = document.getElementById(containerId);
     if (!container) return;
 
     if (commands.length === 0) {
-        container.innerHTML = `<div class="no-results"><p>No commands found</p></div>`;
+        container.innerHTML = '<div class="no-results"><p>No commands found</p></div>';
         return;
     }
 
-    let html = '';
-    commands.forEach((cmd, index) => {
-        const aliases = cmd.aliases && cmd.aliases.length > 0 ?
-            cmd.aliases.map(a => `<span>${a}</span>`).join('') : '';
+    var html = '';
+    commands.forEach(function(cmd, index) {
+        var aliases = cmd.aliases && cmd.aliases.length > 0 ? cmd.aliases.map(function(a) { return '<span>' + a + '</span>'; }).join('') : '';
 
-        let bodyHtml = `
-            <div class="cmd-description">${cmd.description}</div>
-        `;
+        var bodyHtml = '<div class="cmd-description">' + cmd.description + '</div>';
 
         if (cmd.detailedInfo) {
-            bodyHtml += `
-                <div style="margin:0.5rem 0;">
-                    <div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">What it does</div>
-                    <div style="color:var(--text-secondary);line-height:1.7;">${cmd.detailedInfo.whatItDoes}</div>
-                </div>
-            `;
+            bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">What it does</div><div style="color:var(--text-secondary);line-height:1.7;">' + cmd.detailedInfo.whatItDoes + '</div></div>';
 
             if (cmd.detailedInfo.filters && cmd.detailedInfo.filters.length > 0) {
-                bodyHtml += `
-                    <div style="margin:0.5rem 0;">
-                        <div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Available Filters</div>
-                        <table class="filter-table">
-                            <thead>
-                                <tr><th>Category</th><th>Filter</th><th>Description</th></tr>
-                            </thead>
-                            <tbody>
-                `;
-                cmd.detailedInfo.filters.forEach(f => {
-                    bodyHtml += `
-                        <tr>
-                            <td>${f.name}</td>
-                            <td><code>${f.filter}</code></td>
-                            <td>${f.description}</td>
-                        </tr>
-                    `;
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Available Filters</div><table class="filter-table"><thead><tr><th>Category</th><th>Filter</th><th>Description</th></tr></thead><tbody>';
+                cmd.detailedInfo.filters.forEach(function(f) {
+                    bodyHtml += '<tr><td>' + f.name + '</td><td><code>' + f.filter + '</code></td><td>' + f.description + '</td></tr>';
                 });
-                bodyHtml += `
-                            </tbody>
-                        </table>
-                    </div>
-                `;
+                bodyHtml += '</tbody></table></div>';
             }
 
             if (cmd.detailedInfo.modes && cmd.detailedInfo.modes.length > 0) {
-                bodyHtml += `
-                    <div style="margin:0.5rem 0;">
-                        <div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Battle Modes</div>
-                        <ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">
-                `;
-                cmd.detailedInfo.modes.forEach(m => {
-                    bodyHtml += `<li><strong>${m.name}</strong>: ${m.description}</li>`;
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Battle Modes</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                cmd.detailedInfo.modes.forEach(function(m) {
+                    bodyHtml += '<li><strong>' + m.name + '</strong>: ' + m.description + '</li>';
                 });
-                bodyHtml += `</ul></div>`;
+                bodyHtml += '</ul></div>';
             }
 
             if (cmd.detailedInfo.currency) {
-                bodyHtml += `
-                    <div style="margin:0.5rem 0;">
-                        <div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Currency Types</div>
-                        <ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">
-                            <li><strong>Tyden</strong>: ${cmd.detailedInfo.currency.tyden}</li>
-                            <li><strong>Nullite</strong>: ${cmd.detailedInfo.currency.nullite}</li>
-                        </ul>
-                    </div>
-                `;
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Currency Types</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;"><li><strong><span class="text-success">Tyden</span></strong>: ' + cmd.detailedInfo.currency.tyden + '</li><li><strong><span class="text-warning">Nullite</span></strong>: ' + cmd.detailedInfo.currency.nullite + '</li></ul></div>';
             }
 
             if (cmd.detailedInfo.boxTypes && cmd.detailedInfo.boxTypes.length > 0) {
-                bodyHtml += `
-                    <div style="margin:0.5rem 0;">
-                        <div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Box Types</div>
-                        <ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">
-                `;
-                cmd.detailedInfo.boxTypes.forEach(b => {
-                    bodyHtml += `<li><strong>${b.name}</strong>: ${b.description}</li>`;
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Box Types</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                cmd.detailedInfo.boxTypes.forEach(function(b) {
+                    bodyHtml += '<li><strong>' + b.name + '</strong>: ' + b.description + '</li>';
                 });
-                bodyHtml += `</ul></div>`;
+                bodyHtml += '</ul></div>';
             }
 
-            if (cmd.detailedInfo.rewards && cmd.detailedInfo.rewards.length > 0) {
-                bodyHtml += `
-                    <div style="margin:0.5rem 0;">
-                        <div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Rewards</div>
-                        <ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">
-                `;
-                cmd.detailedInfo.rewards.forEach(r => {
-                    bodyHtml += `<li>${r}</li>`;
+            if (cmd.detailedInfo.rewards && Array.isArray(cmd.detailedInfo.rewards) && cmd.detailedInfo.rewards.length > 0) {
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Rewards</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                cmd.detailedInfo.rewards.forEach(function(r) {
+                    bodyHtml += '<li>' + r + '</li>';
                 });
-                bodyHtml += `</ul></div>`;
+                bodyHtml += '</ul></div>';
             }
 
             if (cmd.detailedInfo.ranks && cmd.detailedInfo.ranks.length > 0) {
-                bodyHtml += `
-                    <div style="margin:0.5rem 0;">
-                        <div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Battle Ranks</div>
-                        <div class="rank-list">
-                `;
-                cmd.detailedInfo.ranks.forEach(rank => {
-                    const emojiUrl = `https://cdn.discordapp.com/emojis/${rank.emoji}.png?size=64`;
-                    bodyHtml += `
-                        <div class="rank-item">
-                            <img src="${emojiUrl}" alt="${rank.name}" class="rank-emoji">
-                            <span class="rank-name">${rank.name}</span>
-                            <span class="rank-rating">${rank.rating}</span>
-                        </div>
-                    `;
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Battle Ranks</div><div class="rank-list">';
+                cmd.detailedInfo.ranks.forEach(function(rank) {
+                    var emojiUrl = 'https://cdn.discordapp.com/emojis/' + rank.emoji + '.png?size=64';
+                    bodyHtml += '<div class="rank-item"><img src="' + emojiUrl + '" alt="' + rank.name + '" class="rank-emoji"><span class="rank-name">' + rank.name + '</span><span class="rank-rating">' + rank.rating + '</span></div>';
                 });
-                bodyHtml += `
-                        </div>
-                    </div>
-                `;
+                bodyHtml += '</div></div>';
             }
 
             if (cmd.detailedInfo.subcommands && cmd.detailedInfo.subcommands.length > 0) {
-                bodyHtml += `
-                    <div style="margin:0.5rem 0;">
-                        <div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Subcommands</div>
-                        <ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">
-                `;
-                cmd.detailedInfo.subcommands.forEach(sc => {
-                    bodyHtml += `<li><strong>${sc.name}</strong>: ${sc.description}</li>`;
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Subcommands</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                cmd.detailedInfo.subcommands.forEach(function(sc) {
+                    bodyHtml += '<li><strong>' + sc.name + '</strong>: ' + sc.description + '</li>';
                 });
-                bodyHtml += `</ul></div>`;
+                bodyHtml += '</ul></div>';
             }
 
-            if (cmd.detailedInfo.features && cmd.detailedInfo.features.length > 0) {
-                bodyHtml += `
-                    <div style="margin:0.5rem 0;">
-                        <div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Features</div>
-                        <ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">
-                `;
-                cmd.detailedInfo.features.forEach(f => {
-                    bodyHtml += `<li>${f}</li>`;
+            if (cmd.detailedInfo.features && Array.isArray(cmd.detailedInfo.features) && cmd.detailedInfo.features.length > 0) {
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Features</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                cmd.detailedInfo.features.forEach(function(f) {
+                    bodyHtml += '<li>' + f + '</li>';
                 });
-                bodyHtml += `</ul></div>`;
+                bodyHtml += '</ul></div>';
             }
 
             if (cmd.detailedInfo.requirements) {
-                bodyHtml += `
-                    <div style="margin:0.5rem 0;">
-                        <div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Requirements</div>
-                        <ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">
-                `;
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Requirements</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
                 if (typeof cmd.detailedInfo.requirements === 'string') {
-                    bodyHtml += `<li>${cmd.detailedInfo.requirements}</li>`;
+                    bodyHtml += '<li>' + cmd.detailedInfo.requirements + '</li>';
                 } else {
-                    Object.entries(cmd.detailedInfo.requirements).forEach(([key, value]) => {
-                        bodyHtml += `<li><strong>${key}</strong>: ${value}</li>`;
+                    Object.entries(cmd.detailedInfo.requirements).forEach(function(entry) {
+                        bodyHtml += '<li><strong>' + entry[0] + '</strong>: ' + entry[1] + '</li>';
                     });
                 }
-                bodyHtml += `</ul></div>`;
+                bodyHtml += '</ul></div>';
             }
 
-            if (cmd.detailedInfo.restrictions && cmd.detailedInfo.restrictions.length > 0) {
-                bodyHtml += `
-                    <div style="margin:0.5rem 0;">
-                        <div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Restrictions</div>
-                        <ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">
-                `;
-                cmd.detailedInfo.restrictions.forEach(r => {
-                    bodyHtml += `<li>${r}</li>`;
+            if (cmd.detailedInfo.restrictions && Array.isArray(cmd.detailedInfo.restrictions) && cmd.detailedInfo.restrictions.length > 0) {
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Restrictions</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                cmd.detailedInfo.restrictions.forEach(function(r) {
+                    bodyHtml += '<li><span class="text-danger">⛔</span> ' + r + '</li>';
                 });
-                bodyHtml += `</ul></div>`;
+                bodyHtml += '</ul></div>';
             }
 
             if (cmd.detailedInfo.information && cmd.detailedInfo.information.length > 0) {
-                bodyHtml += `
-                    <div style="margin:0.5rem 0;">
-                        <div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Information</div>
-                        <ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">
-                `;
-                cmd.detailedInfo.information.forEach(info => {
-                    bodyHtml += `<li>${info}</li>`;
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Information</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                cmd.detailedInfo.information.forEach(function(info) {
+                    bodyHtml += '<li><span class="text-success">✓</span> ' + info + '</li>';
                 });
-                bodyHtml += `</ul></div>`;
+                bodyHtml += '</ul></div>';
             }
 
             if (cmd.detailedInfo.options && cmd.detailedInfo.options.length > 0) {
-                bodyHtml += `
-                    <div style="margin:0.5rem 0;">
-                        <div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Options</div>
-                        <ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">
-                `;
-                cmd.detailedInfo.options.forEach(opt => {
-                    bodyHtml += `<li><strong>${opt.name}</strong>: ${opt.description}</li>`;
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Options</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                cmd.detailedInfo.options.forEach(function(opt) {
+                    bodyHtml += '<li><strong>' + opt.name + '</strong>: ' + opt.description + '</li>';
                 });
-                bodyHtml += `</ul></div>`;
+                bodyHtml += '</ul></div>';
             }
 
             if (cmd.detailedInfo.rankers) {
-                bodyHtml += `
-                    <div style="margin:0.5rem 0;">
-                        <div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Rankers</div>
-                        <p style="color:var(--text-secondary);line-height:1.7;">${cmd.detailedInfo.rankers}</p>
-                    </div>
-                `;
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Rankers</div><p style="color:var(--text-secondary);line-height:1.7;"><span class="text-warning">👑</span> ' + cmd.detailedInfo.rankers + '</p></div>';
+            }
+
+            if (cmd.detailedInfo.games && cmd.detailedInfo.games.length > 0) {
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Games</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                cmd.detailedInfo.games.forEach(function(g) {
+                    bodyHtml += '<li>' + g + '</li>';
+                });
+                bodyHtml += '</ul></div>';
+            }
+
+            if (cmd.detailedInfo.rules) {
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Rules</div><p style="color:var(--text-secondary);line-height:1.7;">' + cmd.detailedInfo.rules + '</p></div>';
+            }
+
+            if (cmd.detailedInfo.sections && cmd.detailedInfo.sections.length > 0) {
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Sections</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                cmd.detailedInfo.sections.forEach(function(s) {
+                    bodyHtml += '<li><strong>' + s.name + '</strong>: ' + s.description + '</li>';
+                });
+                bodyHtml += '</ul></div>';
+            }
+
+            if (cmd.detailedInfo.itemTypes && cmd.detailedInfo.itemTypes.length > 0) {
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Item Types</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                cmd.detailedInfo.itemTypes.forEach(function(it) {
+                    bodyHtml += '<li>' + it + '</li>';
+                });
+                bodyHtml += '</ul></div>';
+            }
+
+            if (cmd.detailedInfo.types && cmd.detailedInfo.types.length > 0) {
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Types</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                cmd.detailedInfo.types.forEach(function(t) {
+                    bodyHtml += '<li><strong>' + t.name + '</strong>: ' + t.description + '</li>';
+                });
+                bodyHtml += '</ul></div>';
+            }
+
+            if (cmd.detailedInfo.benefits && cmd.detailedInfo.benefits.length > 0) {
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Benefits</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                cmd.detailedInfo.benefits.forEach(function(b) {
+                    bodyHtml += '<li><span class="text-success">✓</span> ' + b + '</li>';
+                });
+                bodyHtml += '</ul></div>';
+            }
+
+            if (cmd.detailedInfo.limits) {
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Limits</div><p style="color:var(--text-secondary);line-height:1.7;">' + cmd.detailedInfo.limits + '</p></div>';
+            }
+
+            if (cmd.detailedInfo.cost) {
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Cost</div><p style="color:var(--text-secondary);line-height:1.7;">' + cmd.detailedInfo.cost + '</p></div>';
+            }
+
+            if (cmd.detailedInfo.items && cmd.detailedInfo.items.length > 0) {
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Items</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                cmd.detailedInfo.items.forEach(function(item) {
+                    bodyHtml += '<li>' + item + '</li>';
+                });
+                bodyHtml += '</ul></div>';
+            }
+
+            if (cmd.detailedInfo.shopTypes && cmd.detailedInfo.shopTypes.length > 0) {
+                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Shop Types</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                cmd.detailedInfo.shopTypes.forEach(function(st) {
+                    bodyHtml += '<li><strong>' + st.name + '</strong>: ' + st.description + '</li>';
+                });
+                bodyHtml += '</ul></div>';
             }
         }
 
         if (cmd.usage) {
-            bodyHtml += `<div class="cmd-usage">${cmd.usage}</div>`;
+            bodyHtml += '<div class="cmd-usage" onclick="copyToClipboard(\'' + cmd.usage + '\')" style="cursor:pointer;">' + cmd.usage + ' <span style="float:right;font-size:0.7rem;color:var(--text-muted);"><i class="fas fa-copy"></i> Click to copy</span></div>';
         }
 
         if (cmd.examples && cmd.examples.length > 0) {
-            bodyHtml += `
-                <div style="margin:0.5rem 0;">
-                    <div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Examples</div>
-                    ${cmd.examples.map(ex => `<div class="cmd-example">${ex}</div>`).join('')}
-                </div>
-            `;
+            bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Examples</div>';
+            cmd.examples.forEach(function(ex) {
+                var cmdText = ex.split(' - ')[0];
+                bodyHtml += '<div class="cmd-example" onclick="copyToClipboard(\'' + cmdText + '\')" style="cursor:pointer;">' + ex + ' <span style="float:right;font-size:0.6rem;color:var(--text-muted);"><i class="fas fa-copy"></i></span></div>';
+            });
+            bodyHtml += '</div>';
         }
 
         if (cmd.tips && cmd.tips.length > 0) {
-            bodyHtml += `
-                <div class="cmd-tips">
-                    <ul>${cmd.tips.map(t => `<li>${t}</li>`).join('')}</ul>
-                </div>
-            `;
+            bodyHtml += '<div class="cmd-tips"><ul>';
+            cmd.tips.forEach(function(t) {
+                bodyHtml += '<li><span class="text-success">💡</span> ' + t + '</li>';
+            });
+            bodyHtml += '</ul></div>';
         }
 
-        bodyHtml += `
-            <div class="cmd-meta">
-                ${cmd.cooldown ? `<span><i class="fas fa-clock"></i> Cooldown: ${cmd.cooldown}s</span>` : ''}
-                ${cmd.guildOnly ? `<span><i class="fas fa-crown"></i> Guild Only</span>` : ''}
-                ${cmd.ownerOnly ? `<span><i class="fas fa-user-shield"></i> Owner Only</span>` : ''}
-            </div>
-        `;
+        bodyHtml += '<div class="cmd-meta">';
+        if (cmd.cooldown) bodyHtml += '<span><i class="fas fa-clock"></i> Cooldown: ' + cmd.cooldown + 's</span>';
+        if (cmd.guildOnly) bodyHtml += '<span><i class="fas fa-crown" style="color:#ffa502;"></i> Guild Only</span>';
+        if (cmd.ownerOnly) bodyHtml += '<span><i class="fas fa-user-shield" style="color:#ff4757;"></i> Owner Only</span>';
+        if (cmd.category) bodyHtml += '<span><i class="fas fa-tag"></i> ' + cmd.category + '</span>';
+        bodyHtml += '</div>';
 
-        html += `
-            <div class="command-card" id="cmd-${containerId}-${index}">
-                <div class="command-header" onclick="toggleCommand('cmd-${containerId}-${index}')">
-                    <span class="cmd-name">.${cmd.name}</span>
-                    <span class="cmd-category">${cmd.category}</span>
-                    ${cmd.aliases && cmd.aliases.length > 0 ? `<div class="cmd-aliases">${aliases}</div>` : ''}
-                    <span class="cmd-toggle">▼</span>
-                </div>
-                <div class="command-body">
-                    ${bodyHtml}
-                </div>
-            </div>
-        `;
+        html += '<div class="command-card" id="cmd-' + containerId + '-' + index + '"><div class="command-header" onclick="toggleCommand(\'cmd-' + containerId + '-' + index + '\')"><span class="cmd-name">.' + cmd.name + '</span><span class="cmd-category">' + cmd.category + '</span>';
+        if (cmd.aliases && cmd.aliases.length > 0) html += '<div class="cmd-aliases">' + aliases + '</div>';
+        html += '<span class="cmd-toggle">▼</span></div><div class="command-body">' + bodyHtml + '</div></div>';
     });
 
     container.innerHTML = html;
 }
 
 function toggleCommand(id) {
-    const card = document.getElementById(id);
+    var card = document.getElementById(id);
     if (card) {
         card.classList.toggle('open');
-        const body = card.querySelector('.command-body');
+        var body = card.querySelector('.command-body');
         if (card.classList.contains('open')) {
             body.style.maxHeight = '1200px';
             body.style.padding = '0 1.25rem 1.25rem';
@@ -1761,14 +1772,11 @@ function toggleCommand(id) {
 renderCommands(commandData);
 
 function filterCommands() {
-    const search = document.getElementById('commandSearch').value.toLowerCase();
-    const activeCategory = document.querySelector('.category-filters .filter-btn.active')?.dataset.category || 'all';
-    let filtered = commandData.filter(cmd => {
-        const matchesSearch = cmd.name.toLowerCase().includes(search) ||
-            cmd.description.toLowerCase().includes(search) ||
-            cmd.category.toLowerCase().includes(search) ||
-            (cmd.aliases && cmd.aliases.some(a => a.toLowerCase().includes(search)));
-        const matchesCategory = activeCategory === 'all' || cmd.category === activeCategory;
+    var search = document.getElementById('commandSearch').value.toLowerCase();
+    var activeCategory = document.querySelector('.category-filters .filter-btn.active')?.dataset.category || 'all';
+    var filtered = commandData.filter(function(cmd) {
+        var matchesSearch = cmd.name.toLowerCase().includes(search) || cmd.description.toLowerCase().includes(search) || cmd.category.toLowerCase().includes(search) || (cmd.aliases && cmd.aliases.some(function(a) { return a.toLowerCase().includes(search); }));
+        var matchesCategory = activeCategory === 'all' || cmd.category === activeCategory;
         return matchesSearch && matchesCategory;
     });
     renderCommands(filtered);
@@ -1776,15 +1784,12 @@ function filterCommands() {
 
 function filterByCategory(category, btn, e) {
     if (e) e.stopPropagation();
-    document.querySelectorAll('.category-filters .filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.category-filters .filter-btn').forEach(function(b) { b.classList.remove('active'); });
     if (btn) btn.classList.add('active');
-    const search = document.getElementById('commandSearch').value.toLowerCase();
-    let filtered = commandData.filter(cmd => {
-        const matchesSearch = cmd.name.toLowerCase().includes(search) ||
-            cmd.description.toLowerCase().includes(search) ||
-            cmd.category.toLowerCase().includes(search) ||
-            (cmd.aliases && cmd.aliases.some(a => a.toLowerCase().includes(search)));
-        const matchesCategory = category === 'all' || cmd.category === category;
+    var search = document.getElementById('commandSearch').value.toLowerCase();
+    var filtered = commandData.filter(function(cmd) {
+        var matchesSearch = cmd.name.toLowerCase().includes(search) || cmd.description.toLowerCase().includes(search) || cmd.category.toLowerCase().includes(search) || (cmd.aliases && cmd.aliases.some(function(a) { return a.toLowerCase().includes(search); }));
+        var matchesCategory = category === 'all' || cmd.category === category;
         return matchesSearch && matchesCategory;
     });
     renderCommands(filtered);
@@ -1792,11 +1797,11 @@ function filterByCategory(category, btn, e) {
 
 function showPage(pageId, element, e) {
     if (e) e.stopPropagation();
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const target = document.getElementById('page-' + pageId);
+    document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+    var target = document.getElementById('page-' + pageId);
     if (target) target.classList.add('active');
     if (element) {
-        document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+        document.querySelectorAll('.sidebar-nav a').forEach(function(a) { a.classList.remove('active'); });
         element.classList.add('active');
     }
     if (window.innerWidth <= 768) toggleSidebar(false);
@@ -1804,104 +1809,124 @@ function showPage(pageId, element, e) {
 
 function showCategoryPage(category, element, e) {
     if (e) e.stopPropagation();
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    let page = document.getElementById('page-cat-' + category.replace(/\s/g, ''));
+    document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+    var page = document.getElementById('page-cat-' + category.replace(/\s/g, ''));
     if (!page) {
         page = document.createElement('div');
         page.id = 'page-cat-' + category.replace(/\s/g, '');
         page.className = 'page';
         document.getElementById('categoryPages').appendChild(page);
-        const commands = commandData.filter(c => c.category === category);
-        const icons = {
+        var commands = commandData.filter(function(c) { return c.category === category; });
+        var icons = {
             'Combat': 'fa-crosshairs',
             'Game': 'fa-gamepad',
             'User': 'fa-user',
             'Economy': 'fa-coins',
             'Guild': 'fa-crown',
             'General': 'fa-list',
-            'Shop': 'fa-store'
+            'Shop': 'fa-store',
+            'Info': 'fa-info-circle',
+            'Settings': 'fa-sliders-h',
+            'Utility': 'fa-tools',
+            'Fun': 'fa-dice',
+            'Support': 'fa-heart'
         };
-        const icon = icons[category] || 'fa-folder';
-        let html = `
-            <div class="page-header">
-                <h1><i class="fas ${icon}" style="color:var(--accent);margin-right:0.5rem;"></i> ${category}</h1>
-                <p>${commands.length} commands in this category</p>
-            </div>
-            <div class="search-box">
-                <input type="text" id="search-cat-${category.replace(/\s/g, '')}" placeholder="Search in ${category}..." onkeyup="filterCategoryCommands('${category}')">
-            </div>
-            <div id="cat-commands-${category.replace(/\s/g, '')}"></div>
-            <div class="page-nav">
-                <button class="nav-btn" onclick="showPage('commands', null, event)">← All Commands</button>
-                <span class="page-indicator">${category}</span>
-                <span></span>
-            </div>
-        `;
+        var icon = icons[category] || 'fa-folder';
+        var html = '<div class="page-header"><h1><i class="fas ' + icon + '" style="color:var(--accent);margin-right:0.5rem;"></i> ' + category + '</h1><p>' + commands.length + ' commands in this category</p></div><div class="search-box"><input type="text" id="search-cat-' + category.replace(/\s/g, '') + '" placeholder="Search in ' + category + '..." onkeyup="filterCategoryCommands(\'' + category + '\')"></div><div id="cat-commands-' + category.replace(/\s/g, '') + '"></div><div class="page-nav"><button class="nav-btn" onclick="showPage(\'commands\', null, event)">← All Commands</button><span class="page-indicator">' + category + '</span><span></span></div>';
         page.innerHTML = html;
-        const container = document.getElementById('cat-commands-' + category.replace(/\s/g, ''));
+        var container = document.getElementById('cat-commands-' + category.replace(/\s/g, ''));
         if (container) renderCommands(commands, container.id);
     }
     page.classList.add('active');
     if (element) {
-        document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+        document.querySelectorAll('.sidebar-nav a').forEach(function(a) { a.classList.remove('active'); });
         element.classList.add('active');
     }
     if (window.innerWidth <= 768) toggleSidebar(false);
 }
 
 function filterCategoryCommands(category) {
-    const searchInput = document.getElementById('search-cat-' + category.replace(/\s/g, ''));
+    var searchInput = document.getElementById('search-cat-' + category.replace(/\s/g, ''));
     if (!searchInput) return;
-    const search = searchInput.value.toLowerCase();
-    const commands = commandData.filter(c => c.category === category);
-    const filtered = commands.filter(cmd => {
-        return cmd.name.toLowerCase().includes(search) ||
-            cmd.description.toLowerCase().includes(search) ||
-            (cmd.aliases && cmd.aliases.some(a => a.toLowerCase().includes(search)));
+    var search = searchInput.value.toLowerCase();
+    var commands = commandData.filter(function(c) { return c.category === category; });
+    var filtered = commands.filter(function(cmd) {
+        return cmd.name.toLowerCase().includes(search) || cmd.description.toLowerCase().includes(search) || (cmd.aliases && cmd.aliases.some(function(a) { return a.toLowerCase().includes(search); }));
     });
-    const container = document.getElementById('cat-commands-' + category.replace(/\s/g, ''));
+    var container = document.getElementById('cat-commands-' + category.replace(/\s/g, ''));
     if (container) renderCommands(filtered, container.id);
 }
 
-function toggleSidebar(force) {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const omnitrix = document.getElementById('omnitrixToggle');
-    const icon = document.getElementById('omnitrixIcon');
+var isSidebarOpen = false;
 
-    let isOpen;
+function toggleSidebar(force) {
+    var sidebar = document.getElementById('sidebar');
+    var overlay = document.getElementById('overlay');
+    var omnitrix = document.getElementById('omnitrixToggle');
+    var icon = document.getElementById('omnitrixIcon');
+
+    var shouldOpen;
     if (typeof force === 'boolean') {
-        isOpen = force;
+        shouldOpen = force;
     } else {
-        isOpen = sidebar.classList.contains('open');
+        shouldOpen = !isSidebarOpen;
     }
 
-    if (isOpen) {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('show');
-        omnitrix.classList.remove('active');
-        icon.src = 'https://vectorfilelogo.com/wp-content/uploads/2025/07/Ben-10-Omnitrix-logo-Red.png';
-    } else {
+    if (shouldOpen) {
         sidebar.classList.add('open');
         overlay.classList.add('show');
         omnitrix.classList.add('active');
         icon.src = 'https://vectorfilelogo.com/wp-content/uploads/2025/07/Ben-10-Omnitrix-logo.png';
+        isSidebarOpen = true;
+    } else {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('show');
+        omnitrix.classList.remove('active');
+        icon.src = 'https://vectorfilelogo.com/wp-content/uploads/2025/07/Ben-10-Omnitrix-logo-Red.png';
+        isSidebarOpen = false;
     }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const icon = document.getElementById('omnitrixIcon');
+    var icon = document.getElementById('omnitrixIcon');
     icon.src = 'https://vectorfilelogo.com/wp-content/uploads/2025/07/Ben-10-Omnitrix-logo-Red.png';
+
+    var toggleBtn = document.getElementById('omnitrixToggle');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleSidebar();
+        });
+    }
+
+    var overlay = document.getElementById('overlay');
+    if (overlay) {
+        overlay.addEventListener('click', function() {
+            if (isSidebarOpen) toggleSidebar(false);
+        });
+    }
+
+    if (window.innerWidth <= 768) {
+        toggleSidebar(false);
+    }
 });
 
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') toggleSidebar(false);
+    if (e.key === 'Escape') {
+        if (isSidebarOpen) toggleSidebar(false);
+    }
     if (e.ctrlKey && e.key === 'k') {
         e.preventDefault();
-        document.getElementById('commandSearch')?.focus();
+        var searchInput = document.getElementById('commandSearch');
+        if (searchInput) searchInput.focus();
     }
 });
 
 window.addEventListener('resize', function() {
-    if (window.innerWidth > 768) toggleSidebar(false);
+    if (window.innerWidth > 768 && isSidebarOpen) {
+        toggleSidebar(false);
+    }
+    if (window.innerWidth <= 768) {
+        if (isSidebarOpen) toggleSidebar(false);
+    }
 });
