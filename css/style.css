@@ -1050,3 +1050,68 @@ code[onclick]:hover {
         box-shadow: 0 0 25px rgba(160, 32, 240, 0.7), 0 0 45px rgba(160, 32, 240, 0.3);
     }
 }
+
+
+.rank-grandmaster {
+    position: relative;
+    overflow: hidden;
+    border-color: #FFD700 !important;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+}
+
+.rank-grandmaster::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 215, 0, 0.15) 50%,
+        transparent 70%
+    );
+    animation: shineGrandMaster 3s ease-in-out infinite;
+}
+
+.rank-master {
+    position: relative;
+    overflow: hidden;
+    border-color: #A020F0 !important;
+    background: linear-gradient(135deg, rgba(160, 32, 240, 0.1), rgba(160, 32, 240, 0.05));
+}
+
+.rank-master::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 35%,
+        rgba(160, 32, 240, 0.12) 50%,
+        transparent 65%
+    );
+    animation: shineMaster 3.5s ease-in-out infinite;
+}
+
+@keyframes shineGrandMaster {
+    0% {
+        transform: translateX(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) rotate(45deg);
+    }
+}
+
+@keyframes shineMaster {
+    0% {
+        transform: translateX(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) rotate(45deg);
+    }
+}
