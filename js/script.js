@@ -1584,14 +1584,43 @@ function renderCommands(commands, containerId) {
                 bodyHtml += '</ul></div>';
             }
 
-            if (cmd.detailedInfo.ranks && cmd.detailedInfo.ranks.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Battle Ranks</div><div class="rank-list">';
-                cmd.detailedInfo.ranks.forEach(function(rank) {
-                    var emojiUrl = 'https://cdn.discordapp.com/emojis/' + rank.emoji + '.png?size=64';
-                    bodyHtml += '<div class="rank-item"><img src="' + emojiUrl + '" alt="' + rank.name + '" class="rank-emoji"><span class="rank-name">' + rank.name + '</span><span class="rank-rating">' + rank.rating + '</span></div>';
-                });
-                bodyHtml += '</div></div>';
-            }
+if (cmd.detailedInfo.ranks && cmd.detailedInfo.ranks.length > 0) {
+    bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Battle Ranks</div><div class="rank-list">';
+    cmd.detailedInfo.ranks.forEach(function(rank) {
+        var emojiUrl = 'https://cdn.discordapp.com/emojis/' + rank.emoji + '.png?size=64';
+        var glowStyle = '';
+        var borderColor = '';
+        
+        if (rank.name === 'Grand Master') {
+            glowStyle = 'box-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.3); border: 1px solid #FFD700; animation: glowGrandMaster 2s ease-in-out infinite;';
+            borderColor = '#FFD700';
+        } else if (rank.name === 'Master') {
+            glowStyle = 'box-shadow: 0 0 15px rgba(160, 32, 240, 0.5), 0 0 30px rgba(160, 32, 240, 0.2); border: 1px solid #A020F0; animation: glowMaster 2s ease-in-out infinite;';
+            borderColor = '#A020F0';
+        } else if (rank.name === 'Diamond') {
+            glowStyle = 'box-shadow: 0 0 10px rgba(0, 191, 255, 0.3); border: 1px solid #00BFFF;';
+            borderColor = '#00BFFF';
+        } else if (rank.name === 'Platinum') {
+            glowStyle = 'box-shadow: 0 0 8px rgba(229, 228, 226, 0.2); border: 1px solid #E5E4E2;';
+            borderColor = '#E5E4E2';
+        } else if (rank.name === 'Gold') {
+            glowStyle = 'border: 1px solid #FFD700;';
+            borderColor = '#FFD700';
+        } else if (rank.name === 'Silver') {
+            glowStyle = 'border: 1px solid #C0C0C0;';
+            borderColor = '#C0C0C0';
+        } else if (rank.name === 'Bronze') {
+            glowStyle = 'border: 1px solid #CD7F32;';
+            borderColor = '#CD7F32';
+        } else if (rank.name === 'Iron') {
+            glowStyle = 'border: 1px solid #808080;';
+            borderColor = '#808080';
+        }
+        
+        bodyHtml += '<div class="rank-item" style="' + glowStyle + '"><img src="' + emojiUrl + '" alt="' + rank.name + '" class="rank-emoji"><span class="rank-name" style="color:' + borderColor + ';">' + rank.name + '</span><span class="rank-rating">' + rank.rating + '</span></div>';
+    });
+    bodyHtml += '</div></div>';
+}
 
             if (cmd.detailedInfo.subcommands && cmd.detailedInfo.subcommands.length > 0) {
                 bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Subcommands</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
