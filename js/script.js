@@ -1623,9 +1623,9 @@ function renderCommands(commands, containerId) {
 
             if (cmd.detailedInfo.restrictions && Array.isArray(cmd.detailedInfo.restrictions) && cmd.detailedInfo.restrictions.length > 0) {
                 bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Restrictions</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
-                cmd.detailedInfo.restrictions.forEach(function(r) {
-                    bodyHtml += '<li><span class="text-danger">⛔</span> ' + r + '</li>';
-                });
+cmd.detailedInfo.restrictions.forEach(function(r) {
+    bodyHtml += '<li><i class="fas fa-ban" style="color:#ff4757;"></i> ' + r + '</li>';
+});
                 bodyHtml += '</ul></div>';
             }
 
@@ -1645,9 +1645,9 @@ function renderCommands(commands, containerId) {
                 bodyHtml += '</ul></div>';
             }
 
-            if (cmd.detailedInfo.rankers) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Rankers</div><p style="color:var(--text-secondary);line-height:1.7;"><span class="text-warning">👑</span> ' + cmd.detailedInfo.rankers + '</p></div>';
-            }
+          if (cmd.detailedInfo.rankers) {
+    bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Rankers</div><p style="color:var(--text-secondary);line-height:1.7;"><i class="fas fa-crown" style="color:#ffa502;"></i> ' + cmd.detailedInfo.rankers + '</p></div>';
+}
 
             if (cmd.detailedInfo.games && cmd.detailedInfo.games.length > 0) {
                 bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Games</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
@@ -1733,9 +1733,9 @@ function renderCommands(commands, containerId) {
 
         if (cmd.tips && cmd.tips.length > 0) {
             bodyHtml += '<div class="cmd-tips"><ul>';
-            cmd.tips.forEach(function(t) {
-                bodyHtml += '<li><span class="text-success">💡</span> ' + t + '</li>';
-            });
+cmd.tips.forEach(function(t) {
+    bodyHtml += '<li><i class="fas fa-lightbulb" style="color:#ffa502;"></i> ' + t + '</li>';
+});
             bodyHtml += '</ul></div>';
         }
 
