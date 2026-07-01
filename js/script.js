@@ -1228,7 +1228,7 @@ const commandData = [{
     }
 }, {
     name: "reindex",
-    category: "User",
+    category: "Settings",
     description: "Reindex your alien IDs to be sequential.",
     usage: ".reindex [confirm]",
     aliases: ["ri"],
