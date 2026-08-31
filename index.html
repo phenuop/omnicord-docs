@@ -57,19 +57,19 @@
         </div>
         <div class="sidebar-nav">
             <div class="nav-label">Documentation</div>
-            <a class="active" onclick="showPage('home', this, event)">
+            <a class="active" onclick="navigateTo('home', this, event)">
                 <i class="fas fa-home"></i> Home
             </a>
             <a onclick="window.location.href='https://omnicord.site'">
                 <i class="fas fa-globe"></i> Website
             </a>
-            <a onclick="showPage('getting-started', this, event)">
+            <a onclick="navigateTo('getting-started', this, event)">
                 <i class="fas fa-rocket"></i> Getting Started
             </a>
-            <a onclick="showPage('alien-system', this, event)">
+            <a onclick="navigateTo('alien-system', this, event)">
                 <i class="fas fa-robot"></i> Alien System
             </a>
-            <a onclick="showPage('commands', this, event)">
+            <a onclick="navigateTo('commands', this, event)">
                 <i class="fas fa-terminal"></i> All Commands
                 <span class="badge" id="cmdCount">0</span>
             </a>
@@ -88,7 +88,7 @@
             <div class="hero">
                 <h1>Omnicord Documentation</h1>
                 <p>Your complete guide to the ultimate Ben 10 themed Discord bot</p>
-                <button class="btn" onclick="showPage('getting-started', null, event)">Get Started →</button>
+                <button class="btn" onclick="navigateTo('getting-started', null, event)">Get Started →</button>
             </div>
 
             <div class="doc-section">
@@ -122,7 +122,7 @@
             <div class="page-nav">
                 <span></span>
                 <span class="page-indicator">Page 1 of 4</span>
-                <button class="nav-btn" onclick="showPage('getting-started', null, event)">Next →</button>
+                <button class="nav-btn" onclick="navigateTo('getting-started', null, event)">Next →</button>
             </div>
         </div>
 
@@ -150,7 +150,7 @@
                 <p>Everyone starts with a Starter Box that contains your first alien.</p>
                 <ol>
                     <li>Use <code onclick="copyToClipboard('.open starter')">.open starter</code> to open your Starter Box</li>
-                    <li>You'll receive a random alien from the starter pool (this feature is merged with .register so you dont need to use this)</li>
+                    <li>You'll receive a random alien from the starter pool</li>
                     <li>Use <code onclick="copyToClipboard('.aliens')">.aliens</code> to view your collection</li>
                 </ol>
                 <div class="tip-box">
@@ -171,9 +171,9 @@
             </div>
 
             <div class="page-nav">
-                <button class="nav-btn" onclick="showPage('home', null, event)">← Previous</button>
+                <button class="nav-btn" onclick="navigateTo('home', null, event)">← Previous</button>
                 <span class="page-indicator">Page 2 of 4</span>
-                <button class="nav-btn" onclick="showPage('alien-system', null, event)">Next →</button>
+                <button class="nav-btn" onclick="navigateTo('alien-system', null, event)">Next →</button>
             </div>
         </div>
 
@@ -234,9 +234,9 @@
             </div>
 
             <div class="page-nav">
-                <button class="nav-btn" onclick="showPage('getting-started', null, event)">← Previous</button>
+                <button class="nav-btn" onclick="navigateTo('getting-started', null, event)">← Previous</button>
                 <span class="page-indicator">Page 3 of 4</span>
-                <button class="nav-btn" onclick="showPage('commands', null, event)">Next →</button>
+                <button class="nav-btn" onclick="navigateTo('commands', null, event)">Next →</button>
             </div>
         </div>
 
@@ -257,7 +257,7 @@
             <div id="commandsList"></div>
 
             <div class="page-nav">
-                <button class="nav-btn" onclick="showPage('alien-system', null, event)">← Previous</button>
+                <button class="nav-btn" onclick="navigateTo('alien-system', null, event)">← Previous</button>
                 <span class="page-indicator">Page 4 of 4</span>
                 <button class="nav-btn" onclick="window.open('https://omnicord.site/faq', '_blank')">FAQ →</button>
             </div>
