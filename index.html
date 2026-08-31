@@ -73,6 +73,9 @@
                 <i class="fas fa-terminal"></i> All Commands
                 <span class="badge" id="cmdCount">0</span>
             </a>
+            <a onclick="navigateTo('filters', this, event)">
+                <i class="fas fa-filter"></i> Filters
+            </a>
             <div class="nav-label">Categories</div>
             <div id="categoryNav"></div>
             <div class="nav-label">Support</div>
@@ -121,7 +124,7 @@
 
             <div class="page-nav">
                 <span></span>
-                <span class="page-indicator">Page 1 of 4</span>
+                <span class="page-indicator">Page 1 of 5</span>
                 <button class="nav-btn" onclick="navigateTo('getting-started', null, event)">Next →</button>
             </div>
         </div>
@@ -141,7 +144,7 @@
                 </div>
                 <div class="tip-box">
                     <i class="fas fa-lightbulb"></i>
-                    <p>You only need to register once! After that, all your progress is saved automatically.</p>
+                    <p>You only need to register once. After that, all your progress is saved automatically.</p>
                 </div>
             </div>
 
@@ -155,7 +158,7 @@
                 </ol>
                 <div class="tip-box">
                     <i class="fas fa-lightbulb"></i>
-                    <p>Your first alien is free! Additional aliens can be obtained through fragments, boxes, and luckspin.</p>
+                    <p>Your first alien is free. Additional aliens can be obtained through fragments, boxes, and luckspin.</p>
                 </div>
             </div>
 
@@ -172,7 +175,7 @@
 
             <div class="page-nav">
                 <button class="nav-btn" onclick="navigateTo('home', null, event)">← Previous</button>
-                <span class="page-indicator">Page 2 of 4</span>
+                <span class="page-indicator">Page 2 of 5</span>
                 <button class="nav-btn" onclick="navigateTo('alien-system', null, event)">Next →</button>
             </div>
         </div>
@@ -229,13 +232,13 @@
                     <li>Use <code onclick="copyToClipboard('.detail heatblast')">.detail heatblast</code> — requires <strong>6 fragments</strong></li>
                     <li>Fight villains, use <code onclick="copyToClipboard('.luckspin')">.luckspin</code>, and open vote boxes</li>
                     <li>Use <code onclick="copyToClipboard('.frags')">.frags</code> to check progress: <span class="text-highlight">"Heatblast: 3/6"</span></li>
-                    <li>Once you have all 6 fragments, Heatblast unlocks automatically!</li>
+                    <li>Once you have all 6 fragments, Heatblast unlocks automatically.</li>
                 </ol>
             </div>
 
             <div class="page-nav">
                 <button class="nav-btn" onclick="navigateTo('getting-started', null, event)">← Previous</button>
-                <span class="page-indicator">Page 3 of 4</span>
+                <span class="page-indicator">Page 3 of 5</span>
                 <button class="nav-btn" onclick="navigateTo('commands', null, event)">Next →</button>
             </div>
         </div>
@@ -258,8 +261,106 @@
 
             <div class="page-nav">
                 <button class="nav-btn" onclick="navigateTo('alien-system', null, event)">← Previous</button>
-                <span class="page-indicator">Page 4 of 4</span>
-                <button class="nav-btn" onclick="window.open('https://omnicord.site/faq', '_blank')">FAQ →</button>
+                <span class="page-indicator">Page 4 of 5</span>
+                <button class="nav-btn" onclick="navigateTo('filters', null, event)">Next →</button>
+            </div>
+        </div>
+
+        <div class="page" id="page-filters">
+            <div class="page-header">
+                <h1><i class="fas fa-filter" style="color:var(--accent);margin-right:0.5rem;"></i> Filter Reference</h1>
+                <p>Complete reference of all available filters across Omnicord commands</p>
+            </div>
+
+            <div class="filter-grid">
+                <div class="filter-card">
+                    <h3><i class="fas fa-robot"></i> .aliens</h3>
+                    <table class="filter-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Filter</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Stats</td><td><code>atk:X or attack:X</code></td><td>Filter by attack stat</td></tr>
+                            <tr><td>Stats</td><td><code>def:X or defense:X</code></td><td>Filter by defense stat</td></tr>
+                            <tr><td>Stats</td><td><code>spd:X or speed:X</code></td><td>Filter by speed stat</td></tr>
+                            <tr><td>Stats</td><td><code>lvl:X or level:X</code></td><td>Filter by level</td></tr>
+                            <tr><td>Stats</td><td><code>iv:X or dna:X</code></td><td>Filter by DNA quality</td></tr>
+                            <tr><td>Other</td><td><code>n:X or name:X</code></td><td>Search by alien name</td></tr>
+                            <tr><td>Other</td><td><code>r:X or rarity:X</code></td><td>Filter by rarity</td></tr>
+                            <tr><td>Other</td><td><code>f:true or fav:true</code></td><td>Show only favorites</td></tr>
+                            <tr><td>Other</td><td><code>nick:text</code></td><td>Search by nickname</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="filter-card">
+                    <h3><i class="fas fa-cube"></i> .fragments</h3>
+                    <table class="filter-table">
+                        <thead>
+                            <tr>
+                                <th>Filter</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>name:X</code></td><td>Filter by alien name</td></tr>
+                            <tr><td><code>rarity:X</code></td><td>Filter by rarity (common, rare, epic, mythical, legendary)</td></tr>
+                            <tr><td><code>progress:X</code></td><td>Filter by progress percentage</td></tr>
+                            <tr><td><code>count:X</code></td><td>Filter by fragment count</td></tr>
+                            <tr><td><code>needed:X</code></td><td>Filter by fragments still needed</td></tr>
+                            <tr><td><code>completed:true/false</code></td><td>Show only completed or incomplete aliens</td></tr>
+                            <tr><td><code>sort:X</code></td><td>Sort by name, rarity, progress, or count</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="filter-card">
+                    <h3><i class="fas fa-store"></i> .market</h3>
+                    <table class="filter-table">
+                        <thead>
+                            <tr>
+                                <th>Filter</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>name:X</code></td><td>Filter by alien name</td></tr>
+                            <tr><td><code>rarity:X</code></td><td>Filter by rarity</td></tr>
+                            <tr><td><code>min:X</code></td><td>Minimum price filter</td></tr>
+                            <tr><td><code>max:X</code></td><td>Maximum price filter</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="filter-card">
+                    <h3><i class="fas fa-hashtag"></i> Filter Reference Guide</h3>
+                    <div class="filter-guide">
+                        <p><strong>Common Filter Syntax:</strong></p>
+                        <ul>
+                            <li><code>filter:value</code> - Exact match (e.g., <code>rarity:mythic</code>)</li>
+                            <li><code>filter:value1-value2</code> - Range (e.g., <code>atk:50-100</code>)</li>
+                            <li><code>filter:>value</code> - Greater than (e.g., <code>iv:>80</code>)</li>
+                            <li><code>filter:&lt;value</code> - Less than (e.g., <code>lvl:&lt;10</code>)</li>
+                            <li><code>filter:true/false</code> - Boolean (e.g., <code>fav:true</code>)</li>
+                        </ul>
+                        <p><strong>Tips:</strong></p>
+                        <ul>
+                            <li>Combine multiple filters: <code>.aliens atk:50 f:true</code></li>
+                            <li>Filters are case-insensitive</li>
+                            <li>Use <code>-</code> for ranges: <code>spd:30-50</code></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-nav">
+                <button class="nav-btn" onclick="navigateTo('commands', null, event)">← Previous</button>
+                <span class="page-indicator">Page 5 of 5</span>
+                <span></span>
             </div>
         </div>
 
