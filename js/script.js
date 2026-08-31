@@ -1944,7 +1944,16 @@ function handleRouting() {
     var path = window.location.pathname;
     var hash = window.location.hash;
     
-
+    
+    var specialPages = ['home', 'getting-started', 'alien-system', 'commands', 'filters'];
+    if (hash && hash.length > 1) {
+        var hashValue = hash.replace(/^#/, '');
+        if (specialPages.includes(hashValue)) {
+            showPage(hashValue, null, null);
+            return;
+        }
+    }
+   
     if (path.startsWith('/command/')) {
         var cmdName = getCommandNameFromPath(path);
         if (cmdName) {
@@ -1954,7 +1963,7 @@ function handleRouting() {
         }
     }
     
-
+    
     if (hash && hash.length > 1) {
         var result = getCommandFromHash(hash);
         if (result) {
@@ -1963,7 +1972,7 @@ function handleRouting() {
         }
     }
     
-
+    
     showPage('home', null, null);
 }
 
