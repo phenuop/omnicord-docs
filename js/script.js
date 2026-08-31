@@ -1228,7 +1228,7 @@ const commandData = [{
     }
 }, {
     name: "reindex",
-    category: "Settings",
+    category: "User",
     description: "Reindex your alien IDs to be sequential.",
     usage: ".reindex [confirm]",
     aliases: ["ri"],
@@ -1513,7 +1513,7 @@ function buildCategoryNav() {
     categories.forEach(function(category) {
         var count = commandData.filter(function(c) { return c.category === category; }).length;
         var icon = icons[category] || 'fa-folder';
-        html += '<a onclick="showCategoryPage(\'' + category + '\', this, event)"><i class="fas ' + icon + '"></i> ' + category + '<span class="badge">' + count + '</span></a>';
+        html += '<a onclick="navigateToCategory(\'' + category + '\', this, event)"><i class="fas ' + icon + '"></i> ' + category + '<span class="badge">' + count + '</span></a>';
     });
     container.innerHTML = html;
 }
@@ -1542,99 +1542,88 @@ function renderCommands(commands, containerId) {
     var html = '';
     commands.forEach(function(cmd, index) {
         var aliases = cmd.aliases && cmd.aliases.length > 0 ? cmd.aliases.map(function(a) { return '<span>' + a + '</span>'; }).join('') : '';
+        var cmdId = 'cmd-' + containerId + '-' + index;
 
         var bodyHtml = '<div class="cmd-description">' + cmd.description + '</div>';
 
         if (cmd.detailedInfo) {
-            bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">What it does</div><div style="color:var(--text-secondary);line-height:1.7;">' + cmd.detailedInfo.whatItDoes + '</div></div>';
+           
+            if (cmd.detailedInfo.whatItDoes) {
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-whatitdoes"><div class="cmd-section-title">What it does</div><div class="cmd-section-content">' + cmd.detailedInfo.whatItDoes + '</div></div>';
+            }
 
+            
             if (cmd.detailedInfo.filters && cmd.detailedInfo.filters.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Available Filters</div><table class="filter-table"><thead><tr><th>Category</th><th>Filter</th><th>Description</th></tr></thead><tbody>';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-filters"><div class="cmd-section-title">Available Filters</div><div class="cmd-section-content"><table class="filter-table"><thead><tr><th>Category</th><th>Filter</th><th>Description</th></tr></thead><tbody>';
                 cmd.detailedInfo.filters.forEach(function(f) {
                     bodyHtml += '<tr><td>' + f.name + '</td><td><code>' + f.filter + '</code></td><td>' + f.description + '</td></tr>';
                 });
-                bodyHtml += '</tbody></table></div>';
+                bodyHtml += '</tbody></table></div></div>';
             }
 
+            
             if (cmd.detailedInfo.modes && cmd.detailedInfo.modes.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Battle Modes</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-modes"><div class="cmd-section-title">Battle Modes</div><div class="cmd-section-content"><ul>';
                 cmd.detailedInfo.modes.forEach(function(m) {
                     bodyHtml += '<li><strong>' + m.name + '</strong>: ' + m.description + '</li>';
                 });
-                bodyHtml += '</ul></div>';
+                bodyHtml += '</ul></div></div>';
             }
 
+            
             if (cmd.detailedInfo.currency) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Currency Types</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;"><li><strong><span class="text-success">Tyden</span></strong>: ' + cmd.detailedInfo.currency.tyden + '</li><li><strong><span class="text-warning">Nullite</span></strong>: ' + cmd.detailedInfo.currency.nullite + '</li></ul></div>';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-currency"><div class="cmd-section-title">Currency Types</div><div class="cmd-section-content"><ul><li><strong><span class="text-success">Tyden</span></strong>: ' + cmd.detailedInfo.currency.tyden + '</li><li><strong><span class="text-warning">Nullite</span></strong>: ' + cmd.detailedInfo.currency.nullite + '</li></ul></div></div>';
             }
 
+           
             if (cmd.detailedInfo.boxTypes && cmd.detailedInfo.boxTypes.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Box Types</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-boxtypes"><div class="cmd-section-title">Box Types</div><div class="cmd-section-content"><ul>';
                 cmd.detailedInfo.boxTypes.forEach(function(b) {
                     bodyHtml += '<li><strong>' + b.name + '</strong>: ' + b.description + '</li>';
                 });
-                bodyHtml += '</ul></div>';
+                bodyHtml += '</ul></div></div>';
             }
 
+            
             if (cmd.detailedInfo.rewards && Array.isArray(cmd.detailedInfo.rewards) && cmd.detailedInfo.rewards.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Rewards</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-rewards"><div class="cmd-section-title">Rewards</div><div class="cmd-section-content"><ul>';
                 cmd.detailedInfo.rewards.forEach(function(r) {
                     bodyHtml += '<li>' + r + '</li>';
                 });
-                bodyHtml += '</ul></div>';
+                bodyHtml += '</ul></div></div>';
             }
 
-if (cmd.detailedInfo.ranks && cmd.detailedInfo.ranks.length > 0) {
-    bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Battle Ranks</div><div class="rank-list">';
-    cmd.detailedInfo.ranks.forEach(function(rank) {
-        var emojiUrl = 'https://cdn.discordapp.com/emojis/' + rank.emoji + '.png?size=64';
-        var glowStyle = '';
-        var borderColor = '';
-        var shinyClass = '';
-        
-        if (rank.name === 'Grand Master') {
-            shinyClass = 'rank-grandmaster';
-            borderColor = '#FFD700';
-        } else if (rank.name === 'Master') {
-            shinyClass = 'rank-master';
-            borderColor = '#A020F0';
-        } else if (rank.name === 'Diamond') {
-            borderColor = '#00BFFF';
-        } else if (rank.name === 'Platinum') {
-            borderColor = '#E5E4E2';
-        } else if (rank.name === 'Gold') {
-            borderColor = '#FFD700';
-        } else if (rank.name === 'Silver') {
-            borderColor = '#C0C0C0';
-        } else if (rank.name === 'Bronze') {
-            borderColor = '#CD7F32';
-        } else if (rank.name === 'Iron') {
-            borderColor = '#808080';
-        }
-        
-        bodyHtml += '<div class="rank-item ' + shinyClass + '" style="border-color:' + borderColor + ';"><img src="' + emojiUrl + '" alt="' + rank.name + '" class="rank-emoji"><span class="rank-name" style="color:' + borderColor + ';">' + rank.name + '</span><span class="rank-rating">' + rank.rating + '</span></div>';
-    });
-    bodyHtml += '</div></div>';
-}
+           
+            if (cmd.detailedInfo.ranks && cmd.detailedInfo.ranks.length > 0) {
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-ranks"><div class="cmd-section-title">Battle Ranks</div><div class="cmd-section-content"><div class="rank-list">';
+                cmd.detailedInfo.ranks.forEach(function(rank) {
+                    var emojiUrl = 'https://cdn.discordapp.com/emojis/' + rank.emoji + '.png?size=64';
+                    bodyHtml += '<div class="rank-item"><img src="' + emojiUrl + '" alt="' + rank.name + '" class="rank-emoji"><span class="rank-name">' + rank.name + '</span><span class="rank-rating">' + rank.rating + '</span></div>';
+                });
+                bodyHtml += '</div></div></div>';
+            }
 
+           
             if (cmd.detailedInfo.subcommands && cmd.detailedInfo.subcommands.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Subcommands</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-subcommands"><div class="cmd-section-title">Subcommands</div><div class="cmd-section-content"><ul>';
                 cmd.detailedInfo.subcommands.forEach(function(sc) {
                     bodyHtml += '<li><strong>' + sc.name + '</strong>: ' + sc.description + '</li>';
                 });
-                bodyHtml += '</ul></div>';
+                bodyHtml += '</ul></div></div>';
             }
 
+           
             if (cmd.detailedInfo.features && Array.isArray(cmd.detailedInfo.features) && cmd.detailedInfo.features.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Features</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-features"><div class="cmd-section-title">Features</div><div class="cmd-section-content"><ul>';
                 cmd.detailedInfo.features.forEach(function(f) {
                     bodyHtml += '<li>' + f + '</li>';
                 });
-                bodyHtml += '</ul></div>';
+                bodyHtml += '</ul></div></div>';
             }
 
+           
             if (cmd.detailedInfo.requirements) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Requirements</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-requirements"><div class="cmd-section-title">Requirements</div><div class="cmd-section-content"><ul>';
                 if (typeof cmd.detailedInfo.requirements === 'string') {
                     bodyHtml += '<li>' + cmd.detailedInfo.requirements + '</li>';
                 } else {
@@ -1642,103 +1631,117 @@ if (cmd.detailedInfo.ranks && cmd.detailedInfo.ranks.length > 0) {
                         bodyHtml += '<li><strong>' + entry[0] + '</strong>: ' + entry[1] + '</li>';
                     });
                 }
-                bodyHtml += '</ul></div>';
+                bodyHtml += '</ul></div></div>';
             }
 
+            
             if (cmd.detailedInfo.restrictions && Array.isArray(cmd.detailedInfo.restrictions) && cmd.detailedInfo.restrictions.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Restrictions</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
-cmd.detailedInfo.restrictions.forEach(function(r) {
-    bodyHtml += '<li><i class="fas fa-ban" style="color:#ff4757;"></i> ' + r + '</li>';
-});
-                bodyHtml += '</ul></div>';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-restrictions"><div class="cmd-section-title">Restrictions</div><div class="cmd-section-content"><ul>';
+                cmd.detailedInfo.restrictions.forEach(function(r) {
+                    bodyHtml += '<li><span class="text-danger">⊝</span> ' + r + '</li>';
+                });
+                bodyHtml += '</ul></div></div>';
             }
 
+            
             if (cmd.detailedInfo.information && cmd.detailedInfo.information.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Information</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-information"><div class="cmd-section-title">Information</div><div class="cmd-section-content"><ul>';
                 cmd.detailedInfo.information.forEach(function(info) {
                     bodyHtml += '<li><span class="text-success">✓</span> ' + info + '</li>';
                 });
-                bodyHtml += '</ul></div>';
+                bodyHtml += '</ul></div></div>';
             }
 
+            
             if (cmd.detailedInfo.options && cmd.detailedInfo.options.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Options</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-options"><div class="cmd-section-title">Options</div><div class="cmd-section-content"><ul>';
                 cmd.detailedInfo.options.forEach(function(opt) {
                     bodyHtml += '<li><strong>' + opt.name + '</strong>: ' + opt.description + '</li>';
                 });
-                bodyHtml += '</ul></div>';
+                bodyHtml += '</ul></div></div>';
             }
 
-          if (cmd.detailedInfo.rankers) {
-    bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Rankers</div><p style="color:var(--text-secondary);line-height:1.7;"><i class="fas fa-crown" style="color:#ffa502;"></i> ' + cmd.detailedInfo.rankers + '</p></div>';
-}
-
+            
             if (cmd.detailedInfo.games && cmd.detailedInfo.games.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Games</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-games"><div class="cmd-section-title">Games</div><div class="cmd-section-content"><ul>';
                 cmd.detailedInfo.games.forEach(function(g) {
                     bodyHtml += '<li>' + g + '</li>';
                 });
-                bodyHtml += '</ul></div>';
+                bodyHtml += '</ul></div></div>';
             }
 
+            
             if (cmd.detailedInfo.rules) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Rules</div><p style="color:var(--text-secondary);line-height:1.7;">' + cmd.detailedInfo.rules + '</p></div>';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-rules"><div class="cmd-section-title">Rules</div><div class="cmd-section-content">' + cmd.detailedInfo.rules + '</div></div>';
             }
 
+           
             if (cmd.detailedInfo.sections && cmd.detailedInfo.sections.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Sections</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-sections"><div class="cmd-section-title">Sections</div><div class="cmd-section-content"><ul>';
                 cmd.detailedInfo.sections.forEach(function(s) {
                     bodyHtml += '<li><strong>' + s.name + '</strong>: ' + s.description + '</li>';
                 });
-                bodyHtml += '</ul></div>';
+                bodyHtml += '</ul></div></div>';
             }
 
+            
             if (cmd.detailedInfo.itemTypes && cmd.detailedInfo.itemTypes.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Item Types</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-itemtypes"><div class="cmd-section-title">Item Types</div><div class="cmd-section-content"><ul>';
                 cmd.detailedInfo.itemTypes.forEach(function(it) {
                     bodyHtml += '<li>' + it + '</li>';
                 });
-                bodyHtml += '</ul></div>';
+                bodyHtml += '</ul></div></div>';
             }
 
+           
             if (cmd.detailedInfo.types && cmd.detailedInfo.types.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Types</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-types"><div class="cmd-section-title">Types</div><div class="cmd-section-content"><ul>';
                 cmd.detailedInfo.types.forEach(function(t) {
                     bodyHtml += '<li><strong>' + t.name + '</strong>: ' + t.description + '</li>';
                 });
-                bodyHtml += '</ul></div>';
+                bodyHtml += '</ul></div></div>';
             }
 
+            
             if (cmd.detailedInfo.benefits && cmd.detailedInfo.benefits.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Benefits</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-benefits"><div class="cmd-section-title">Benefits</div><div class="cmd-section-content"><ul>';
                 cmd.detailedInfo.benefits.forEach(function(b) {
                     bodyHtml += '<li><span class="text-success">✓</span> ' + b + '</li>';
                 });
-                bodyHtml += '</ul></div>';
+                bodyHtml += '</ul></div></div>';
             }
 
+            
+            if (cmd.detailedInfo.rankers) {
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-rankers"><div class="cmd-section-title">Rankers</div><div class="cmd-section-content"><span class="text-warning">👑</span> ' + cmd.detailedInfo.rankers + '</div></div>';
+            }
+
+            
             if (cmd.detailedInfo.limits) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Limits</div><p style="color:var(--text-secondary);line-height:1.7;">' + cmd.detailedInfo.limits + '</p></div>';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-limits"><div class="cmd-section-title">Limits</div><div class="cmd-section-content">' + cmd.detailedInfo.limits + '</div></div>';
             }
 
+            
             if (cmd.detailedInfo.cost) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Cost</div><p style="color:var(--text-secondary);line-height:1.7;">' + cmd.detailedInfo.cost + '</p></div>';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-cost"><div class="cmd-section-title">Cost</div><div class="cmd-section-content">' + cmd.detailedInfo.cost + '</div></div>';
             }
 
+            
             if (cmd.detailedInfo.items && cmd.detailedInfo.items.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Items</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-items"><div class="cmd-section-title">Items</div><div class="cmd-section-content"><ul>';
                 cmd.detailedInfo.items.forEach(function(item) {
                     bodyHtml += '<li>' + item + '</li>';
                 });
-                bodyHtml += '</ul></div>';
+                bodyHtml += '</ul></div></div>';
             }
 
+            
             if (cmd.detailedInfo.shopTypes && cmd.detailedInfo.shopTypes.length > 0) {
-                bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Shop Types</div><ul style="color:var(--text-secondary);line-height:1.8;margin-left:1.25rem;">';
+                bodyHtml += '<div class="cmd-section" id="' + cmdId + '-shoptypes"><div class="cmd-section-title">Shop Types</div><div class="cmd-section-content"><ul>';
                 cmd.detailedInfo.shopTypes.forEach(function(st) {
                     bodyHtml += '<li><strong>' + st.name + '</strong>: ' + st.description + '</li>';
                 });
-                bodyHtml += '</ul></div>';
+                bodyHtml += '</ul></div></div>';
             }
         }
 
@@ -1747,20 +1750,20 @@ cmd.detailedInfo.restrictions.forEach(function(r) {
         }
 
         if (cmd.examples && cmd.examples.length > 0) {
-            bodyHtml += '<div style="margin:0.5rem 0;"><div style="color:var(--text-primary);font-weight:500;margin-bottom:0.25rem;">Examples</div>';
+            bodyHtml += '<div class="cmd-section" id="' + cmdId + '-examples"><div class="cmd-section-title">Examples</div><div class="cmd-section-content">';
             cmd.examples.forEach(function(ex) {
                 var cmdText = ex.split(' - ')[0];
                 bodyHtml += '<div class="cmd-example" onclick="copyToClipboard(\'' + cmdText + '\')" style="cursor:pointer;">' + ex + ' <span style="float:right;font-size:0.6rem;color:var(--text-muted);"><i class="fas fa-copy"></i></span></div>';
             });
-            bodyHtml += '</div>';
+            bodyHtml += '</div></div>';
         }
 
         if (cmd.tips && cmd.tips.length > 0) {
-            bodyHtml += '<div class="cmd-tips"><ul>';
-cmd.tips.forEach(function(t) {
-    bodyHtml += '<li><i class="fas fa-lightbulb" style="color:#ffa502;"></i> ' + t + '</li>';
-});
-            bodyHtml += '</ul></div>';
+            bodyHtml += '<div class="cmd-section" id="' + cmdId + '-tips"><div class="cmd-section-title">Tips</div><div class="cmd-section-content"><ul>';
+            cmd.tips.forEach(function(t) {
+                bodyHtml += '<li><span class="text-success">💡</span> ' + t + '</li>';
+            });
+            bodyHtml += '</ul></div></div>';
         }
 
         bodyHtml += '<div class="cmd-meta">';
@@ -1770,7 +1773,7 @@ cmd.tips.forEach(function(t) {
         if (cmd.category) bodyHtml += '<span><i class="fas fa-tag"></i> ' + cmd.category + '</span>';
         bodyHtml += '</div>';
 
-        html += '<div class="command-card" id="cmd-' + containerId + '-' + index + '"><div class="command-header" onclick="toggleCommand(\'cmd-' + containerId + '-' + index + '\')"><span class="cmd-name">.' + cmd.name + '</span><span class="cmd-category">' + cmd.category + '</span>';
+        html += '<div class="command-card" id="' + cmdId + '"><div class="command-header" onclick="toggleCommand(\'' + cmdId + '\')"><span class="cmd-name">.' + cmd.name + '</span><span class="cmd-category">' + cmd.category + '</span>';
         if (cmd.aliases && cmd.aliases.length > 0) html += '<div class="cmd-aliases">' + aliases + '</div>';
         html += '<span class="cmd-toggle">▼</span></div><div class="command-body">' + bodyHtml + '</div></div>';
     });
@@ -1819,8 +1822,171 @@ function filterByCategory(category, btn, e) {
     renderCommands(filtered);
 }
 
+
+function getCommandNameFromPath(path) {
+    
+    var match = path.match(/^\/command\/([^\/?#]+)/i);
+    if (match) return match[1].toLowerCase();
+    return null;
+}
+
+function getSectionFromPath(path) {
+    
+    var match = path.match(/^\/command\/[^\/]+\/([^\/?#]+)/i);
+    if (match) return match[1].toLowerCase();
+    return null;
+}
+
+function getCommandFromHash(hash) {
+    if (!hash || hash === '') return null;
+    
+    var clean = hash.replace(/^#/, '');
+   
+    var parts = clean.split('-');
+    if (parts.length > 1) {
+        
+        var section = parts.pop();
+        var cmdName = parts.join('-');
+        
+        if (cmdName.startsWith('.')) cmdName = cmdName.substring(1);
+        return { name: cmdName.toLowerCase(), section: section };
+    }
+    
+    var name = clean;
+    if (name.startsWith('.')) name = name.substring(1);
+    return { name: name.toLowerCase(), section: null };
+}
+
+function resolveCommand(cmdName) {
+    
+    return commandData.find(function(c) {
+        return c.name.toLowerCase() === cmdName.toLowerCase() || 
+               (c.aliases && c.aliases.some(function(a) { return a.toLowerCase() === cmdName.toLowerCase(); }));
+    });
+}
+
+function navigateToCommand(cmdName, section, element, e) {
+    if (e) e.preventDefault();
+    
+    var cmd = resolveCommand(cmdName);
+    if (!cmd) {
+        showToast('Command not found: ' + cmdName, 'error');
+        return;
+    }
+
+ 
+    showPage('commands', null, null);
+    
+    
+    var searchInput = document.getElementById('commandSearch');
+    if (searchInput) {
+        searchInput.value = '';
+    }
+    
+    document.querySelectorAll('.category-filters .filter-btn').forEach(function(b) { 
+        b.classList.remove('active'); 
+    });
+    var allBtn = document.querySelector('.category-filters .filter-btn[data-category="all"]');
+    if (allBtn) allBtn.classList.add('active');
+    
+    
+    renderCommands(commandData);
+    
+   
+    var container = document.getElementById('commandsList');
+    var cards = container.querySelectorAll('.command-card');
+    var targetCard = null;
+    cards.forEach(function(card) {
+        var nameSpan = card.querySelector('.cmd-name');
+        if (nameSpan) {
+            var name = nameSpan.textContent.replace('.', '').toLowerCase();
+            if (name === cmd.name.toLowerCase()) {
+                targetCard = card;
+            }
+        }
+    });
+    
+    if (targetCard) {
+        
+        if (!targetCard.classList.contains('open')) {
+            toggleCommand(targetCard.id);
+        }
+        
+       
+        setTimeout(function() {
+            targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            
+            if (section) {
+                var sectionId = targetCard.id + '-' + section;
+                var sectionEl = document.getElementById(sectionId);
+                if (sectionEl) {
+                    setTimeout(function() {
+                        sectionEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        
+                        sectionEl.style.transition = 'background-color 0.3s ease';
+                        sectionEl.style.backgroundColor = 'rgba(0, 199, 88, 0.15)';
+                        setTimeout(function() {
+                            sectionEl.style.backgroundColor = 'transparent';
+                        }, 2000);
+                    }, 300);
+                } else {
+                    showToast('Section "' + section + '" not found for ' + cmd.name, 'error');
+                }
+            }
+        }, 200);
+    } else {
+        showToast('Command not found: ' + cmdName, 'error');
+    }
+}
+
+function handleRouting() {
+    var path = window.location.pathname;
+    var hash = window.location.hash;
+    
+
+    if (path.startsWith('/command/')) {
+        var cmdName = getCommandNameFromPath(path);
+        if (cmdName) {
+            var section = getSectionFromPath(path);
+            navigateToCommand(cmdName, section);
+            return;
+        }
+    }
+    
+
+    if (hash && hash.length > 1) {
+        var result = getCommandFromHash(hash);
+        if (result) {
+            navigateToCommand(result.name, result.section);
+            return;
+        }
+    }
+    
+
+    showPage('home', null, null);
+}
+
+function navigateTo(page, element, e) {
+    if (e) e.preventDefault();
+ 
+    var url = window.location.pathname + '#' + page;
+    if (page === 'home') {
+        url = window.location.pathname;
+    }
+    history.pushState({ page: page }, '', url);
+    showPage(page, element, e);
+}
+
+function navigateToCategory(category, element, e) {
+    if (e) e.preventDefault();
+    var slug = category.toLowerCase().replace(/\s/g, '-');
+    history.pushState({ category: category }, '', '#category-' + slug);
+    showCategoryPage(category, element, e);
+}
+
 function showPage(pageId, element, e) {
-    if (e) e.stopPropagation();
+    if (e) e.preventDefault();
     document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
     var target = document.getElementById('page-' + pageId);
     if (target) target.classList.add('active');
@@ -1832,7 +1998,7 @@ function showPage(pageId, element, e) {
 }
 
 function showCategoryPage(category, element, e) {
-    if (e) e.stopPropagation();
+    if (e) e.preventDefault();
     document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
     var page = document.getElementById('page-cat-' + category.replace(/\s/g, ''));
     if (!page) {
@@ -1881,37 +2047,19 @@ function filterCategoryCommands(category) {
     if (container) renderCommands(filtered, container.id);
 }
 
-var isSidebarOpen = false;
 
-function toggleSidebar(force) {
-    var sidebar = document.getElementById('sidebar');
-    var overlay = document.getElementById('overlay');
-    var omnitrix = document.getElementById('omnitrixToggle');
-    var icon = document.getElementById('omnitrixIcon');
+window.addEventListener('popstate', function(e) {
+    handleRouting();
+});
 
-    var shouldOpen;
-    if (typeof force === 'boolean') {
-        shouldOpen = force;
-    } else {
-        shouldOpen = !isSidebarOpen;
-    }
-
-    if (shouldOpen) {
-        sidebar.classList.add('open');
-        overlay.classList.add('show');
-        omnitrix.classList.add('active');
-        icon.src = 'https://vectorfilelogo.com/wp-content/uploads/2025/07/Ben-10-Omnitrix-logo.png';
-        isSidebarOpen = true;
-    } else {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('show');
-        omnitrix.classList.remove('active');
-        icon.src = 'https://vectorfilelogo.com/wp-content/uploads/2025/07/Ben-10-Omnitrix-logo-Red.png';
-        isSidebarOpen = false;
-    }
-}
 
 document.addEventListener('DOMContentLoaded', function() {
+  
+    renderCommands(commandData);
+
+    handleRouting();
+    
+  
     var icon = document.getElementById('omnitrixIcon');
     icon.src = 'https://vectorfilelogo.com/wp-content/uploads/2025/07/Ben-10-Omnitrix-logo-Red.png';
 
@@ -1954,3 +2102,34 @@ window.addEventListener('resize', function() {
         if (isSidebarOpen) toggleSidebar(false);
     }
 });
+
+// Sidebar state
+var isSidebarOpen = false;
+
+function toggleSidebar(force) {
+    var sidebar = document.getElementById('sidebar');
+    var overlay = document.getElementById('overlay');
+    var omnitrix = document.getElementById('omnitrixToggle');
+    var icon = document.getElementById('omnitrixIcon');
+
+    var shouldOpen;
+    if (typeof force === 'boolean') {
+        shouldOpen = force;
+    } else {
+        shouldOpen = !isSidebarOpen;
+    }
+
+    if (shouldOpen) {
+        sidebar.classList.add('open');
+        overlay.classList.add('show');
+        omnitrix.classList.add('active');
+        icon.src = 'https://vectorfilelogo.com/wp-content/uploads/2025/07/Ben-10-Omnitrix-logo.png';
+        isSidebarOpen = true;
+    } else {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('show');
+        omnitrix.classList.remove('active');
+        icon.src = 'https://vectorfilelogo.com/wp-content/uploads/2025/07/Ben-10-Omnitrix-logo-Red.png';
+        isSidebarOpen = false;
+    }
+}
