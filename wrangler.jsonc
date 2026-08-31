@@ -6,7 +6,10 @@
     "enabled": true
   },
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "configuration": {
+      "not_found_handling": "single-page-application"
+    }
   },
   "compatibility_flags": [
     "nodejs_compat"
