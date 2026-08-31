@@ -942,6 +942,97 @@ code[onclick]:hover {
     font-size: 1rem;
 }
 
+/* ===== FILTER PAGE STYLES ===== */
+.filter-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.filter-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    transition: var(--transition);
+}
+
+.filter-card:hover {
+    border-color: var(--border-hover);
+}
+
+.filter-card h3 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-card h3 i {
+    color: var(--accent);
+}
+
+.filter-card .filter-table {
+    margin: 0;
+}
+
+.filter-card .filter-table th {
+    color: var(--text-muted);
+    font-size: 0.65rem;
+}
+
+.filter-card .filter-table td {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.filter-card .filter-table code {
+    font-size: 0.75rem;
+    background: var(--bg-primary);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    color: var(--accent);
+    white-space: nowrap;
+}
+
+.filter-guide {
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.filter-guide p {
+    margin-bottom: 0.25rem;
+}
+
+.filter-guide p strong {
+    color: var(--text-primary);
+}
+
+.filter-guide ul {
+    margin: 0.25rem 0 0 1.25rem;
+    list-style: disc;
+}
+
+.filter-guide ul li {
+    margin-bottom: 0.1rem;
+    font-size: 0.9rem;
+}
+
+.filter-guide code {
+    background: var(--bg-primary);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: var(--accent);
+    border: 1px solid var(--border-color);
+    font-family: var(--font-mono);
+}
+
 @media (max-width: 1024px) {
     .main-content {
         padding: 2rem 2rem;
@@ -993,6 +1084,15 @@ code[onclick]:hover {
     .filter-table th {
         padding: 0.3rem 0.5rem;
     }
+    .filter-card {
+        padding: 0.75rem;
+    }
+    .filter-card .filter-table td {
+        font-size: 0.75rem;
+    }
+    .filter-card .filter-table code {
+        font-size: 0.65rem;
+    }
     .page-nav {
         flex-direction: column;
         gap: 0.75rem;
@@ -1018,6 +1118,16 @@ code[onclick]:hover {
         top: 0.5rem;
         left: 0.5rem;
     }
+    .filter-card .filter-table {
+        font-size: 0.65rem;
+    }
+    .filter-card .filter-table td,
+    .filter-card .filter-table th {
+        padding: 0.2rem 0.3rem;
+    }
+    .filter-card .filter-table code {
+        font-size: 0.6rem;
+    }
 }
 
 .page-nav .nav-btn,
@@ -1029,89 +1139,4 @@ code[onclick]:hover {
 .sidebar-nav a,
 .omnitrix-toggle {
     touch-action: manipulation;
-}
-
-
-
-@keyframes glowGrandMaster {
-    0%, 100% {
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.3);
-    }
-    50% {
-        box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 215, 0, 0.4);
-    }
-}
-
-@keyframes glowMaster {
-    0%, 100% {
-        box-shadow: 0 0 15px rgba(160, 32, 240, 0.5), 0 0 30px rgba(160, 32, 240, 0.2);
-    }
-    50% {
-        box-shadow: 0 0 25px rgba(160, 32, 240, 0.7), 0 0 45px rgba(160, 32, 240, 0.3);
-    }
-}
-
-
-.rank-grandmaster {
-    position: relative;
-    overflow: hidden;
-    border-color: #FFD700 !important;
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
-}
-
-.rank-grandmaster::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        45deg,
-        transparent 30%,
-        rgba(255, 215, 0, 0.15) 50%,
-        transparent 70%
-    );
-    animation: shineGrandMaster 3s ease-in-out infinite;
-}
-
-.rank-master {
-    position: relative;
-    overflow: hidden;
-    border-color: #A020F0 !important;
-    background: linear-gradient(135deg, rgba(160, 32, 240, 0.1), rgba(160, 32, 240, 0.05));
-}
-
-.rank-master::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        45deg,
-        transparent 35%,
-        rgba(160, 32, 240, 0.12) 50%,
-        transparent 65%
-    );
-    animation: shineMaster 3.5s ease-in-out infinite;
-}
-
-@keyframes shineGrandMaster {
-    0% {
-        transform: translateX(-100%) rotate(45deg);
-    }
-    100% {
-        transform: translateX(100%) rotate(45deg);
-    }
-}
-
-@keyframes shineMaster {
-    0% {
-        transform: translateX(-100%) rotate(45deg);
-    }
-    100% {
-        transform: translateX(100%) rotate(45deg);
-    }
 }
