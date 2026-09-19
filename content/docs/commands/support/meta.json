@@ -1,6 +1,7 @@
 {
-  "title": "Support",
-  "pages": [
-    "donate"
-  ]
+    "title":  "Support",
+    "pages":  [
+                  "index",
+                  "donate"
+              ]
 }

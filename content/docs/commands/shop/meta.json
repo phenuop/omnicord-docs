@@ -1,7 +1,8 @@
 {
-  "title": "Shop",
-  "pages": [
-    "incense",
-    "shop"
-  ]
+    "title":  "Shop",
+    "pages":  [
+                  "index",
+                  "incense",
+                  "shop"
+              ]
 }

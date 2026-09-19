@@ -1,6 +1,7 @@
 {
-  "title": "Fun",
-  "pages": [
-    "luckspin"
-  ]
+    "title":  "Fun",
+    "pages":  [
+                  "index",
+                  "luckspin"
+              ]
 }

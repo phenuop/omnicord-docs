@@ -1,8 +1,9 @@
 {
-  "title": "Info",
-  "pages": [
-    "botinfo",
-    "invite",
-    "ping"
-  ]
+    "title":  "Info",
+    "pages":  [
+                  "index",
+                  "botinfo",
+                  "invite",
+                  "ping"
+              ]
 }

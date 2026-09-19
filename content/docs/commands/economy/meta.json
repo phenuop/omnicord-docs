@@ -1,12 +1,13 @@
 {
-  "title": "Economy",
-  "pages": [
-    "auction",
-    "balance",
-    "bet",
-    "buy",
-    "inventory",
-    "market",
-    "trade"
-  ]
+    "title":  "Economy",
+    "pages":  [
+                  "index",
+                  "auction",
+                  "balance",
+                  "bet",
+                  "buy",
+                  "inventory",
+                  "market",
+                  "trade"
+              ]
 }

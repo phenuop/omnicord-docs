@@ -1,7 +1,8 @@
 {
-  "title": "Combat",
-  "pages": [
-    "arena",
-    "battle"
-  ]
+    "title":  "Combat",
+    "pages":  [
+                  "index",
+                  "arena",
+                  "battle"
+              ]
 }

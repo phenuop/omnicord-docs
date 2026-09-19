@@ -1,6 +1,7 @@
 {
-  "title": "Utility",
-  "pages": [
-    "register"
-  ]
+    "title":  "Utility",
+    "pages":  [
+                  "index",
+                  "register"
+              ]
 }

@@ -1,13 +1,14 @@
 {
-  "title": "Game",
-  "pages": [
-    "chapter",
-    "combine",
-    "event",
-    "fragments",
-    "moves",
-    "open",
-    "redeem",
-    "vote"
-  ]
+    "title":  "Game",
+    "pages":  [
+                  "index",
+                  "chapter",
+                  "combine",
+                  "event",
+                  "fragments",
+                  "moves",
+                  "open",
+                  "redeem",
+                  "vote"
+              ]
 }

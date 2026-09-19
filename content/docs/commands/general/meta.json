@@ -1,6 +1,7 @@
 {
-  "title": "General",
-  "pages": [
-    "help"
-  ]
+    "title":  "General",
+    "pages":  [
+                  "index",
+                  "help"
+              ]
 }
