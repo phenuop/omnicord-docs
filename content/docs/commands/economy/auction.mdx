@@ -1,0 +1,85 @@
+---
+title: ".auction"
+description: "List, bid on, and manage auctions for aliens and items with a full auction house system."
+---
+
+import { CommandTips } from '@/components/command-tips';
+
+## Overview
+
+List, bid on, and manage auctions for aliens and items with a full auction house system.
+
+The auction system lets players list their aliens and items for others to bid on. It's a dynamic marketplace where supply and demand determine value.
+
+## Usage
+
+```
+.auction <list|info|start|bid|remove> [args]
+```
+
+**Aliases:** `.auc`, `.a`
+
+## Subcommands
+
+### list
+
+View all active auctions with pagination and filters
+
+### list -mine
+
+View only your active auctions
+
+### start
+
+Start an auction with `<alien_id>` `<starting_bid>` `<duration_in_days>`
+
+### remove
+
+Remove your auction if no bids have been placed
+
+### info
+
+View detailed information about a specific auction
+
+### buy
+
+Buyout an auction instantly at the buyout price
+
+### bid
+
+Place a bid on an active auction
+
+## Features
+
+#### Time-limited auctions (up to 10 days)
+
+#### Minimum bid increments system
+
+#### Buyout options for instant purchase
+
+#### Auction history tracking
+
+#### Watchlist for favorite auctions
+
+## Restrictions
+
+#### Auctions can only be used in the support server
+
+#### Maximum auction duration is 10 days
+
+#### Cannot bid on your own auctions
+
+## Examples
+
+```
+.auction list - View all active auctions with pagination
+.auction start 5 5000 - Start auction for alien ID 5 at 5000 Tyden
+.auction bid 12345 5500 - Place bid of 5500 on auction #12345
+.auction info 12345 - View detailed info about auction #12345
+.auction remove 12345 - Remove your auction (if no bids placed)
+.auction buy 12345 - Buyout an auction instantly
+```
+
+## Tips
+
+<CommandTips items={["Set reasonable starting prices to attract bidders","Auctions can last up to 10 days maximum","You can set a buyout price for instant purchase","Auctions can only be used in the support server","Support Server: https://discord.gg/aqRYuq37SE"]} />

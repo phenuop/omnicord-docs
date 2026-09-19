@@ -1,0 +1,58 @@
+---
+title: ".moves"
+description: "Manage your alien combat abilities and movesets."
+---
+
+import { CommandTips } from '@/components/command-tips';
+
+## Overview
+
+Manage your alien combat abilities and movesets.
+
+Allows you to view and manage your alien's combat abilities and movesets using interactive select menus.
+
+## Usage
+
+```
+.moves [list|info|explain] [args]
+```
+
+**Aliases:** `.attacks`, `.combos`
+
+**Cooldown:** 5s
+
+## Subcommands
+
+### list [alien]
+
+Lists the moves of the specified alien or current alien if none provided
+
+### info `<move name>`
+
+Shows detailed information about a specific move
+
+### explain `<effect>`
+
+Explains how a specific effect works in detail
+
+## Features
+
+#### 3 select menus: Attacks, Special Attacks (combined), and Passives
+
+#### Move assignment via select menus
+
+#### Move learning
+
+## Examples
+
+```
+.moves - Open the moves management interface
+.moves list - Show moves of your current alien
+.moves list heatblast - Show moves of Heatblast
+.moves info fireball - Information about fireball move
+.moves explain burn - Explanation of burn effect
+```
+
+## Tips
+
+<CommandTips items={["Different moves have different effects","Some moves are type-specific","Learn moves from battles and items"]} />

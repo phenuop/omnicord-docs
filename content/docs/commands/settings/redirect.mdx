@@ -1,0 +1,60 @@
+---
+title: ".redirect"
+description: "Add/remove redirect channels for villain spawns or level-ups."
+---
+
+import { CommandTips } from '@/components/command-tips';
+
+## Overview
+
+Add/remove redirect channels for villain spawns or level-ups.
+
+Configures redirect channels for level-up notifications and villain spawns.
+
+## Usage
+
+```
+.redirect <level|lvl|spawn|spwn> [#channel or dm or off] [#channel2 ...]
+```
+
+**Aliases:** `.redirect`
+
+## Types
+
+### level/lvl
+
+Redirect level-up notifications
+
+### spawn/spwn
+
+Redirect villain spawn notifications
+
+## Options
+
+### #channel
+
+Send notifications to specific channel
+
+### dm
+
+Send notifications via DM
+
+### off
+
+Disable redirects
+
+## Limits
+
+Maximum channels can be set based on server settings. Use .leveldm to turn DM notifications off.
+
+## Examples
+
+```
+.redirect level #general - Redirect level-ups to #general
+.redirect spawn #events - Redirect villain spawns to #events
+.redirect level off - Disable level-up redirects
+```
+
+## Tips
+
+<CommandTips items={["Level redirects send level-up messages","Spawn redirects send villain spawn notifications","Multiple channels can be set (upto the limit)","Use .leveldm to turn DM notifications off"]} />

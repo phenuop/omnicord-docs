@@ -1,0 +1,39 @@
+---
+title: ".join"
+description: "Join an existing guild by guild ID."
+---
+
+import { CommandTips } from '@/components/command-tips';
+
+## Overview
+
+Join an existing guild by guild ID.
+
+Allows you to join an existing guild by providing the guild ID.
+
+## Usage
+
+```
+.join <guild_id>
+```
+
+**Aliases:** `.joinguild`
+
+## Features
+
+#### Auto-join if guild is open
+
+#### Request system for private guilds
+
+#### Guild member limit checking
+
+## Examples
+
+```
+.join 12345 - Join guild with ID 12345
+.join - View guild join requests
+```
+
+## Tips
+
+<CommandTips items={["You can only be in one guild at a time","Some guilds require approval","Leave your current guild first using .leaveguild"]} />

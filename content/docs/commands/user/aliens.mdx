@@ -1,0 +1,44 @@
+---
+title: ".aliens"
+description: "View and manage your alien collection with advanced filtering options."
+---
+
+import { CommandTips } from '@/components/command-tips';
+
+## Overview
+
+View and manage your alien collection with advanced filtering options.
+
+The `.aliens` command displays your entire alien collection in a paginated, organized format.
+
+## Usage
+
+```
+.aliens [options]
+```
+
+**Aliases:** `.al`, `.myaliens`
+
+## Available Filters
+
+- `atk:X or attack:X` - Filter by attack stat
+- `def:X or defense:X` - Filter by defense stat
+- `spd:X or speed:X` - Filter by speed stat
+- `lvl:X or level:X` - Filter by level
+- `iv:X or dna:X` - Filter by DNA quality
+- `n:X or name:X` - Search by alien name
+- `r:X or rarity:X` - Filter by rarity
+- `f:true or fav:true` - Show only favorites
+- `nick:text` - Search by nickname
+
+## Examples
+
+```
+.aliens - View all your aliens
+.aliens atk:50 - Show aliens with 50+ attack
+.aliens rarity:mythic - Show only mythic rarity aliens
+```
+
+## Tips
+
+<CommandTips items={["Use filters to find specific aliens quickly","Check your best aliens for battles"]} />

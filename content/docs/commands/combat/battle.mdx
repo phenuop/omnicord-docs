@@ -1,0 +1,63 @@
+---
+title: ".battle"
+description: "Engage in turn-based battles against other users. Battle modes include 1v1, 3v3, and 4v4 team fights."
+---
+
+import { CommandTips } from '@/components/command-tips';
+
+## Overview
+
+Engage in turn-based battles against other users. Battle modes include 1v1, 3v3, and 4v4 team fights.
+
+The `.battle` command starts a turn-based battle between you and another user. Select your aliens, choose moves, and battle strategically to win.
+
+## Usage
+
+```
+.battle [mode] @user
+```
+
+**Aliases:** `.fight`, `.duel`
+
+## Battle Modes
+
+### 1v1
+
+Single alien vs single alien. Quickest battle mode. Best for testing individual alien strength.
+
+### 3v3
+
+Three aliens vs three aliens. 1 alien fights at a time. Requires more strategy and team coordination.
+
+### 4v4
+
+Four aliens vs four aliens. 2 aliens fight at a time. Full team battles with maximum strategic depth.
+
+## Battle Ranks
+
+| Rank | Rating |
+|------|------|
+| Grand Master | 2500+ |
+| Master | 2000-2499 |
+| Diamond | 1500-1999 |
+| Platinum | 1200-1499 |
+| Gold | 1000-1199 |
+| Silver | 800-999 |
+| Bronze | 600-799 |
+| Iron | 0-599 |
+
+## Rewards
+
+Earn Tyden and experience from winning battles. Higher level and rarer aliens yield better rewards.
+
+## Examples
+
+```
+.battle 1v1 @user - Challenge someone to a 1v1
+.battle 3v3 @user - 3v3 battle (3 aliens fight 1 at a time)
+.battle 4v4 @user - 4v4 battle (4 aliens fight 2 at a time)
+```
+
+## Tips
+
+<CommandTips items={["Higher level aliens have better stats","Use .moves to set up your alien's abilities before battle","Team composition matters in 3v3 and 4v4 battles","Type advantages can turn the tide"]} />

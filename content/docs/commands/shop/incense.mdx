@@ -1,0 +1,79 @@
+---
+title: ".incense"
+description: "Manage incense to boost alien spawns in multiple channels (max 5)."
+---
+
+import { CommandTips } from '@/components/command-tips';
+
+## Overview
+
+Manage incense to boost alien spawns in multiple channels (max 5).
+
+The incense system allows you to boost alien spawn rates in specific channels. Perfect for hunting rare aliens!
+
+## Usage
+
+```
+.incense [buy | list | pause | resume | stop | pauseall | resumeall | stopall] [channel]
+```
+
+**Aliases:** `.incense`
+
+## Subcommands
+
+### buy
+
+Activate incense in the current channel (costs 120 Nullite)
+
+### list
+
+Show all active incense with their channels and remaining time
+
+### pause [channel]
+
+Pause incense in a specific channel
+
+### resume [channel]
+
+Resume paused incense in a specific channel
+
+### stop [channel]
+
+Stop incense in a specific channel
+
+### pauseall
+
+Pause all active incense (Admin only)
+
+### resumeall
+
+Resume all paused incense (Admin only)
+
+### stopall
+
+Stop all incense (Admin only)
+
+## Cost
+
+120 Nullite per incense activation
+
+## Limits
+
+Maximum 5 active incense at once
+
+## Examples
+
+```
+.incense buy - Activate incense (costs 120 Nullite)
+.incense list - Show active incense
+.incense pause #general - Pause incense in #general
+.incense resume #general - Resume incense in #general
+.incense stop #general - Stop incense in #general
+.incense pauseall - Pause all incense (Admin only)
+.incense resumeall - Resume all incense (Admin only)
+.incense stopall - Stop all incense (Admin only)
+```
+
+## Tips
+
+<CommandTips items={["Maximum 5 active incense at once","Incense costs 120 Nullite to activate","Each incense boosts spawns in one channel","Admins can manage all incense"]} />

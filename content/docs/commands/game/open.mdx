@@ -1,0 +1,60 @@
+---
+title: ".open"
+description: "Open boxes to earn rewards. Different box types contain different rewards."
+---
+
+import { CommandTips } from '@/components/command-tips';
+
+## Overview
+
+Open boxes to earn rewards. Different box types contain different rewards.
+
+Opens boxes to reveal their contents. Each box type offers different rewards with varying rarities.
+
+## Usage
+
+```
+.open [box_type] [amount]
+```
+
+## Box Types
+
+### Common
+
+Basic box with common rewards
+
+### Rare
+
+Contains higher rarity rewards
+
+### Epic
+
+Contains epic rarity rewards
+
+### Legendary
+
+Best chance at legendary aliens and items
+
+## Features
+
+#### Open up to 10 boxes at once
+
+#### Open 10 of all boxes with .open all
+
+#### Box rarity system
+
+#### Guaranteed rewards
+
+## Examples
+
+```
+.open common - Open a Common box
+.open rare 3 - Open 3 Rare boxes
+.open epic - Open an Epic box
+.open legendary - Open a Legendary box
+.open all - Open 10 of all boxes (max 10)
+```
+
+## Tips
+
+<CommandTips items={["Boxes contain aliens, fragments, and more","Different box types have different reward pools","Maximum 10 boxes can be opened at once","Box rarities: Common, Rare, Epic, Legendary"]} />

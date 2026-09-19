@@ -1,0 +1,45 @@
+---
+title: ".bet"
+description: "Bet Tyden against another user with various mini-games."
+---
+
+import { CommandTips } from '@/components/command-tips';
+
+## Overview
+
+Bet Tyden against another user with various mini-games.
+
+The bet system allows you to wager Tyden against other players in various mini-games. New games will be added over time.
+
+## Usage
+
+```
+.bet <@user> <amount>
+```
+
+**Aliases:** `.gamble`, `.wager`
+
+## Games
+
+#### Coin flip - 50/50 chance
+
+#### Number guess - Guess the correct number
+
+#### Dice roll - Higher roll wins
+
+#### More games coming soon!
+
+## Rules
+
+Both players must agree to the bet amount and game type before playing. The winner takes the entire pot.
+
+## Examples
+
+```
+.bet @user 500 - Challenge to a bet of 500 Tyden
+.bet @user 1000 - High stakes bet
+```
+
+## Tips
+
+<CommandTips items={["Both players must accept the bet","Winner takes all","Only bet what you can afford to lose"]} />

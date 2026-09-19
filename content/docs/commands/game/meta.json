@@ -1,0 +1,13 @@
+{
+  "title": "Game",
+  "pages": [
+    "chapter",
+    "combine",
+    "event",
+    "fragments",
+    "moves",
+    "open",
+    "redeem",
+    "vote"
+  ]
+}

@@ -1,16 +1,39 @@
 import { Inter } from 'next/font/google';
-import { Provider } from '@/components/provider';
+import type { Metadata } from 'next';
+import { RootProvider } from 'fumadocs-ui/provider/next';
 import './global.css';
 
 const inter = Inter({
   subsets: ['latin'],
+  weight: ['200', '400', '500', '600'],
+  display: 'swap',
+  variable: '--font-inter',
 });
+
+export const metadata: Metadata = {
+  title: {
+    default: 'Omnicord Documentation',
+    template: '%s | Omnicord Docs',
+  },
+  description:
+    'Your complete guide to the ultimate Ben 10 themed Discord bot. Learn how to collect aliens, battle players, join guilds, and master Omnicord.',
+  metadataBase: new URL('https://docs.omnicord.site'),
+  icons: {
+    icon: 'https://omnicord.neocities.org/pfp.png',
+    apple: 'https://omnicord.neocities.org/pfp.png',
+  },
+  openGraph: {
+    type: 'website',
+    siteName: 'Omnicord',
+    images: 'https://lunarfrost.neocities.org/assets/bg.png',
+  },
+};
 
 export default function Layout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="en" className={inter.className} suppressHydrationWarning>
+   <html lang="en" className={`${inter.variable} font-sans`} suppressHydrationWarning>
       <body className="flex flex-col min-h-screen">
-        <Provider>{children}</Provider>
+        <RootProvider>{children}</RootProvider>
       </body>
     </html>
   );

@@ -1,0 +1,78 @@
+---
+title: ".market"
+description: "Market to sell and buy aliens."
+---
+
+import { CommandTips } from '@/components/command-tips';
+
+## Overview
+
+Market to sell and buy aliens.
+
+A marketplace where players can buy and sell aliens directly.
+
+## Usage
+
+```
+.market <add|remove|info|buy|list> [args]
+```
+
+**Aliases:** `.m`
+
+## Subcommands
+
+### add
+
+List your alien for sale
+
+### remove
+
+Remove your listing
+
+### info
+
+View listing details
+
+### buy
+
+Purchase a listed alien
+
+### list
+
+View all listings with filters
+
+### list -mine
+
+View only your listings
+
+## Available Filters
+
+- `name:X` - Filter by alien name
+- `rarity:X` - Filter by rarity
+- `min:X` - Minimum price filter
+- `max:X` - Maximum price filter
+
+## Features
+
+#### Direct buying and selling
+
+#### No bidding wars
+
+#### Price your items freely
+
+#### Filter and search options
+
+## Examples
+
+```
+.market add 5 10000 - List alien ID 5 for 10000 Tyden
+.market remove 123 - Remove listing #123
+.market info 123 - View listing #123 details
+.market buy 123 - Buy listing #123
+.market list - View all listings with filters
+.market list -mine - View your listings
+```
+
+## Tips
+
+<CommandTips items={["Price items competitively","Rare aliens sell for more","Check market trends before listing"]} />

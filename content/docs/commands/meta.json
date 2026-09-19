@@ -1,0 +1,18 @@
+{
+  "title": "All Commands",
+  "pages": [
+    "index",
+    "combat",
+    "economy",
+    "fun",
+    "game",
+    "general",
+    "guild",
+    "info",
+    "settings",
+    "shop",
+    "support",
+    "user",
+    "utility"
+  ]
+}

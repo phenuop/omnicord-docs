@@ -1,0 +1,57 @@
+---
+title: ".friend"
+description: "Manage your friends system including adding, blocking, and privacy settings."
+---
+
+import { CommandTips } from '@/components/command-tips';
+
+## Overview
+
+Manage your friends system including adding, blocking, and privacy settings.
+
+Complete friend system allowing you to add friends, block users, manage privacy settings, and more.
+
+## Usage
+
+```
+.friend [add/requests/list/privacy/profile/block/unblock] [user]
+```
+
+## Subcommands
+
+### add
+
+Send a friend request to another user
+
+### requests
+
+View pending friend requests
+
+### list
+
+View your current friend list
+
+### privacy
+
+Manage your privacy settings
+
+### block
+
+Block a user
+
+### unblock
+
+Unblock a user
+
+## Examples
+
+```
+.friend add @user - Send a friend request
+.friend list - View your friend list
+.friend block @user - Block a user
+.friend privacy - Manage privacy settings
+```
+
+## Tips
+
+<CommandTips items={["Friends get notifications when you're online","Blocked users cannot interact with you","Manage privacy to control visibility"]} />

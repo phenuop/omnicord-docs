@@ -10,3 +10,101 @@ html > body[data-scroll-locked] {
   margin-right: 0px !important;
   --removed-body-scroll-bar-size: 0px !important;
 }
+
+
+:root {
+  --color-fd-background: hsl(0, 0%, 98%);
+  --color-fd-foreground: hsl(220, 15%, 15%);
+  --color-fd-muted: hsl(220, 10%, 94%);
+  --color-fd-muted-foreground: hsl(220, 10%, 45%);
+  --color-fd-popover: hsl(0, 0%, 100%);
+  --color-fd-popover-foreground: hsl(220, 15%, 15%);
+  --color-fd-card: hsl(0, 0%, 100%);
+  --color-fd-card-foreground: hsl(220, 15%, 15%);
+  --color-fd-border: hsl(220, 13%, 89%);
+  --color-fd-primary: hsl(147, 100%, 39%);       /* #00c758 */
+  --color-fd-primary-foreground: hsl(0, 0%, 100%);
+  --color-fd-secondary: hsl(220, 10%, 94%);
+  --color-fd-secondary-foreground: hsl(220, 15%, 15%);
+  --color-fd-accent: hsl(147, 60%, 92%);
+  --color-fd-accent-foreground: hsl(147, 100%, 25%);
+  --color-fd-ring: hsl(147, 100%, 39%);
+  --fd-layout-width: 120rem;
+  --fd-sidebar-width: 280px;
+  --fd-toc-width: 240px;
+}
+
+@theme {
+  --color-fd-background: hsl(0, 0%, 96%);
+  --color-fd-foreground: hsl(0, 0%, 3.9%);
+  --color-fd-muted: hsl(0, 0%, 96.1%);
+  --color-fd-muted-foreground: hsl(0, 0%, 45.1%);
+  --color-fd-popover: hsl(0, 0%, 98%);
+  --color-fd-popover-foreground: hsl(0, 0%, 15.1%);
+  --color-fd-card: hsl(0, 0%, 94.7%);
+  --color-fd-card-foreground: hsl(0, 0%, 3.9%);
+  --color-fd-border: hsla(0, 0%, 80%, 50%);
+  --color-fd-primary: hsl(0, 0%, 9%);
+  --color-fd-primary-foreground: hsl(0, 0%, 98%);
+  --color-fd-secondary: hsl(0, 0%, 93.1%);
+  --color-fd-secondary-foreground: hsl(0, 0%, 9%);
+  --color-fd-accent: hsla(0, 0%, 82%, 50%);
+  --color-fd-accent-foreground: hsl(0, 0%, 9%);
+  --color-fd-ring: hsl(0, 0%, 63.9%);
+}
+
+.dark {
+  --color-fd-background: hsl(0, 0%, 7.04%);
+  --color-fd-foreground: hsl(0, 0%, 92.1%);
+  --color-fd-muted: hsl(0, 0%, 12.9%);
+  --color-fd-muted-foreground: hsl(0, 0%, 60.9%);
+  --color-fd-popover: hsl(0, 0%, 9.8%);
+  --color-fd-popover-foreground: hsl(0, 0%, 92.1%);
+  --color-fd-card: hsl(0, 0%, 9.8%);
+  --color-fd-card-foreground: hsl(0, 0%, 92.1%);
+  --color-fd-border: hsla(0, 0%, 40%, 20%);
+  --color-fd-primary: hsl(147, 100%, 39%);
+  --color-fd-primary-foreground: hsl(0, 0%, 7%);
+  --color-fd-secondary: hsl(0, 0%, 12.9%);
+  --color-fd-secondary-foreground: hsl(0, 0%, 92.1%);
+  --color-fd-accent: hsla(0, 0%, 40.9%, 30%);
+  --color-fd-accent-foreground: hsl(0, 0%, 92.1%);
+  --color-fd-ring: hsl(147, 100%, 39%);
+}
+:root {
+  --fd-layout-width: 110rem;
+}
+
+html {
+  font-size: 14px;
+}
+
+body {
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+h1 { font-size: 1.5rem; font-weight: 600; }
+h2 { font-size: 1.15rem; font-weight: 600; }
+h3 { font-size: 1rem; font-weight: 600; }
+h4, h5, h6 { font-size: 0.9rem; font-weight: 600; }
+
+p, li, td, th {
+  font-size: 0.875rem;
+}
+
+code, pre {
+  font-size: 0.78rem;
+}
+
+#nd-page {
+  max-width: 780px !important;
+}
+
+#nd-sidebar {
+  font-size: 0.8rem;
+}
+
+#nd-toc {
+  font-size: 0.75rem;
+}

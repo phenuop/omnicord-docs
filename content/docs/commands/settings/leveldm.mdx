@@ -1,0 +1,46 @@
+---
+title: ".leveldm"
+description: "Set your personal level-up DM preference."
+---
+
+import { CommandTips } from '@/components/command-tips';
+
+## Overview
+
+Set your personal level-up DM preference.
+
+Sets your personal preference for receiving level-up direct messages.
+
+## Usage
+
+```
+.leveldm <on|off|auto>
+```
+
+**Aliases:** `.leveldm`, `.levelpref`, `.lvlpref`
+
+## Options
+
+### on
+
+Always receive level-up DMs
+
+### off
+
+Never receive level-up DMs
+
+### auto
+
+Follow the server setting (default)
+
+## Examples
+
+```
+.leveldm on - Always receive level-up DMs
+.leveldm off - Never receive level-up DMs
+.leveldm auto - Follow server setting (default)
+```
+
+## Tips
+
+<CommandTips items={["Auto follows server settings","Change at any time","DMs include reward information"]} />

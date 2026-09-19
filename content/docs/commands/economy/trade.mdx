@@ -1,0 +1,76 @@
+---
+title: ".trade"
+description: "Trade Tyden, Nullite, aliens, and fragments with another user."
+---
+
+import { CommandTips } from '@/components/command-tips';
+
+## Overview
+
+Trade Tyden, Nullite, aliens, and fragments with another user.
+
+A comprehensive trading system allowing players to exchange Tyden, Nullite, aliens, and fragments.
+
+## Usage
+
+```
+.trade <@user> or .trade <add/confirm/cancel>
+```
+
+**Aliases:** `.t`
+
+## Subcommands
+
+### @user
+
+Start a trade with another user
+
+### add alien [id]
+
+Add an alien to the trade
+
+### add fragment [name] [amount]
+
+Add fragments to the trade (amount required)
+
+### add tyden [amount]
+
+Add Tyden to the trade
+
+### add nullite [amount]
+
+Add Nullite to the trade
+
+### confirm
+
+Confirm and finalize the trade
+
+### cancel
+
+Cancel the current trade
+
+## Features
+
+#### Multi-item trades
+
+#### Real-time updates
+
+#### Both must confirm
+
+#### Trade history tracking
+
+## Examples
+
+```
+.trade @user - Start a trade with someone
+.trade add alien 5 - Add alien ID 5 to the trade
+.trade add fragment heatblast 10 - Add 10 Heatblast fragments
+.trade add tyden 1000 - Add 1000 Tyden to trade
+.trade add nullite 50 - Add 50 Nullite to trade
+.trade confirm - Confirm the trade
+.trade cancel - Cancel the trade
+```
+
+## Tips
+
+<CommandTips items={["Both players must confirm","Trades are final once confirmed","Trades require mutual agreement"]} />

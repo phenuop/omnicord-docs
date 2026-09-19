@@ -1,0 +1,14 @@
+{
+  "title": "Guild",
+  "pages": [
+    "createguild",
+    "guildShop",
+    "guildedit",
+    "guildinfo",
+    "guildlist",
+    "join",
+    "leaderboard",
+    "leaveguild",
+    "raid"
+  ]
+}

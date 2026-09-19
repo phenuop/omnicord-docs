@@ -1,0 +1,57 @@
+---
+title: ".fragments"
+description: "View your alien fragments with every filter imaginable."
+---
+
+import { CommandTips } from '@/components/command-tips';
+
+## Overview
+
+View your alien fragments with every filter imaginable.
+
+Displays all the alien fragments you've collected with advanced filtering and sorting options.
+
+## Usage
+
+```
+.fragments [name:X] [rarity:X] [progress:X] [count:X] [needed:X] [completed:true/false] [sort:X]
+```
+
+**Aliases:** `.frags`, `.myfrags`, `.fragment`, `.frag`
+
+**Cooldown:** 5s
+
+## Subcommands
+
+### fetch `<alien>`
+
+Retrieve information about a completed alien
+
+### fetch all
+
+Retrieve all completed aliens
+
+## Available Filters
+
+- `name:X` - Filter by alien name
+- `rarity:X` - Filter by rarity (common, rare, epic, mythical, legendary)
+- `progress:X` - Filter by progress percentage
+- `count:X` - Filter by fragment count
+- `needed:X` - Filter by fragments still needed
+- `completed:true/false` - Show only completed or incomplete aliens
+- `sort:X` - Sort by name, rarity, progress, or count
+
+## Examples
+
+```
+.frags - View all your fragments
+.frags name:heatblast - Check fragments for Heatblast
+.frags completed:true - Show only completed aliens
+.frags rarity:mythic - Show only mythic fragments
+.frags fetch heatblast - Retrieve completed alien info
+.frags fetch all - Retrieve all completed aliens
+```
+
+## Tips
+
+<CommandTips items={["See how close you are to unlocking new aliens","Rare aliens typically need more fragments","Use filters to find specific fragments quickly"]} />

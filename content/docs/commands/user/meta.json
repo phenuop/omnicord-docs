@@ -1,0 +1,15 @@
+{
+  "title": "User",
+  "pages": [
+    "aliens",
+    "detail",
+    "favorite",
+    "friend",
+    "info",
+    "profile",
+    "reindex",
+    "setbio",
+    "setnickname",
+    "transform"
+  ]
+}

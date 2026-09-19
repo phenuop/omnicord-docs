@@ -1,0 +1,49 @@
+---
+title: ".help"
+description: "Display help information for all commands or a specific command."
+---
+
+import { CommandTips } from '@/components/command-tips';
+
+## Overview
+
+Display help information for all commands or a specific command.
+
+The help command displays all available commands or detailed information about a specific command. Commands are organized by category for easy browsing.
+
+## Usage
+
+```
+.help [command]
+```
+
+## Sections
+
+### All Commands
+
+Shows a paginated list of all available commands with categories
+
+### Command Details
+
+Provides detailed information about a specific command including usage, examples, and tips
+
+## Features
+
+#### Paginated command list
+
+#### Category filtering
+
+#### Detailed command information
+
+#### Search functionality
+
+## Examples
+
+```
+.help - Show all commands
+.help battle - Show detailed help for battle command
+```
+
+## Tips
+
+<CommandTips items={["Use .help [command] for specific command info","Commands are grouped by category","New commands are added regularly"]} />
