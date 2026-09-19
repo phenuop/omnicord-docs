@@ -1,12 +1,5 @@
 ﻿{
   "title": "Omnicord Docs",
   "root": true,
-  "pages": [
-    "docs",
-    {
-      "title": "Getting Started",
-      "icon": "Notebook"
-    },
-    "commands"
-  ]
+  "pages": ["docs", "getting-started", "commands"]
 }
