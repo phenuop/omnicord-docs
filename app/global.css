@@ -76,35 +76,35 @@ html > body[data-scroll-locked] {
 }
 
 html {
-  font-size: 14px;
+  font-size: 15px;
 }
 
 body {
-  font-size: 0.9rem;
-  line-height: 1.55;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
-h1 { font-size: 1.5rem; font-weight: 600; }
-h2 { font-size: 1.15rem; font-weight: 600; }
-h3 { font-size: 1rem; font-weight: 600; }
-h4, h5, h6 { font-size: 0.9rem; font-weight: 600; }
+h1 { font-size: 1.75rem; font-weight: 600; }
+h2 { font-size: 1.3rem; font-weight: 600; }
+h3 { font-size: 1.1rem; font-weight: 600; }
+h4, h5, h6 { font-size: 0.95rem; font-weight: 600; }
 
 p, li, td, th {
-  font-size: 0.875rem;
+  font-size: 0.9rem;
 }
 
 code, pre {
-  font-size: 0.78rem;
+  font-size: 0.82rem;
 }
 
 #nd-page {
-  max-width: 780px !important;
+  max-width: 900px !important;
 }
 
 #nd-sidebar {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
 
 #nd-toc {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }
