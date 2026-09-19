@@ -2,6 +2,8 @@ import { llms, loader } from 'fumadocs-core/source';
 import { docsContentRoute, docsImageRoute, docsRoute } from './shared';
 import { defineDocs } from 'fumadocs-mdx/macro';
 import { metaSchema, pageSchema } from 'fumadocs-core/source/schema';
+import { createElement } from 'react';
+import { icons } from 'lucide-react';
 
 const docs = defineDocs({
   dir: 'content/docs',
@@ -16,11 +18,16 @@ const docs = defineDocs({
   },
 });
 
-// See https://fumadocs.dev/docs/headless/source-api for more info
 export const source = loader({
   baseUrl: docsRoute,
   source: docs.toFumadocsSource(),
   plugins: [],
+  icon(icon) {
+    if (!icon) return;
+    if (icon in icons) {
+      return createElement(icons[icon as keyof typeof icons]);
+    }
+  },
 });
 
 export const docsLlms = llms(source, {

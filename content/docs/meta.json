@@ -1,5 +1,4 @@
 ﻿{
   "title": "Omnicord Docs",
-  "root": true,
   "pages": ["docs", "getting-started", "commands"]
 }

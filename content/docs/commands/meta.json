@@ -1,5 +1,6 @@
 {
   "title": "All Commands",
+  "icon": "Terminal",
   "pages": [
     "index",
     "combat",
@@ -14,5 +15,6 @@
     "support",
     "user",
     "utility"
-  ]
+  ],
+    "root": true
 }

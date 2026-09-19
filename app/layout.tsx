@@ -11,17 +11,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: 'Omnicord Documentation',
-    template: '%s | Omnicord Docs',
-  },
-  description:
-    'Your complete guide to the ultimate Ben 10 themed Discord bot. Learn how to collect aliens, battle players, join guilds, and master Omnicord.',
+  title: { default: 'Omnicord Documentation', template: '%s | Omnicord Docs' },
+  description: 'Your complete guide to the ultimate Ben 10 themed Discord bot.',
   metadataBase: new URL('https://docs.omnicord.site'),
-  icons: {
-    icon: 'https://omnicord.neocities.org/pfp.png',
-    apple: 'https://omnicord.neocities.org/pfp.png',
-  },
+  icons: { icon: 'https://omnicord.neocities.org/pfp.png' },
   openGraph: {
     type: 'website',
     siteName: 'Omnicord',
@@ -31,9 +24,18 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: LayoutProps<'/'>) {
   return (
-   <html lang="en" className={`${inter.variable} font-sans`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} font-sans`} suppressHydrationWarning>
       <body className="flex flex-col min-h-screen">
-        <RootProvider>{children}</RootProvider>
+        <RootProvider
+          search={{
+            options: {
+              type: 'static',
+              from: '/api/search',
+            },
+          }}
+        >
+          {children}
+        </RootProvider>
       </body>
     </html>
   );
