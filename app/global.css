@@ -11,21 +11,20 @@ html > body[data-scroll-locked] {
   --removed-body-scroll-bar-size: 0px !important;
 }
 
-
 :root {
-  --color-fd-background: hsl(0, 0%, 98%);
-  --color-fd-foreground: hsl(220, 15%, 15%);
-  --color-fd-muted: hsl(220, 10%, 94%);
-  --color-fd-muted-foreground: hsl(220, 10%, 45%);
-  --color-fd-popover: hsl(0, 0%, 100%);
-  --color-fd-popover-foreground: hsl(220, 15%, 15%);
-  --color-fd-card: hsl(0, 0%, 100%);
-  --color-fd-card-foreground: hsl(220, 15%, 15%);
-  --color-fd-border: hsl(220, 13%, 89%);
-  --color-fd-primary: hsl(147, 100%, 39%);       /* #00c758 */
-  --color-fd-primary-foreground: hsl(0, 0%, 100%);
-  --color-fd-secondary: hsl(220, 10%, 94%);
-  --color-fd-secondary-foreground: hsl(220, 15%, 15%);
+  --color-fd-background: hsl(40, 30%, 96%);        /* pastel beige */
+  --color-fd-foreground: hsl(30, 8%, 18%);         /* pastel black */
+  --color-fd-muted: hsl(40, 20%, 92%);
+  --color-fd-muted-foreground: hsl(30, 8%, 45%);
+  --color-fd-popover: hsl(40, 35%, 98%);           /* soft beige */
+  --color-fd-popover-foreground: hsl(30, 8%, 18%);
+  --color-fd-card: hsl(40, 35%, 98%);
+  --color-fd-card-foreground: hsl(30, 8%, 18%);
+  --color-fd-border: hsl(35, 18%, 87%);
+  --color-fd-primary: hsl(147, 100%, 39%);         /* #00c758 */
+  --color-fd-primary-foreground: hsl(40, 30%, 96%);
+  --color-fd-secondary: hsl(40, 20%, 92%);
+  --color-fd-secondary-foreground: hsl(30, 8%, 18%);
   --color-fd-accent: hsl(147, 60%, 92%);
   --color-fd-accent-foreground: hsl(147, 100%, 25%);
   --color-fd-ring: hsl(147, 100%, 39%);
@@ -35,42 +34,43 @@ html > body[data-scroll-locked] {
 }
 
 @theme {
-  --color-fd-background: hsl(0, 0%, 96%);
-  --color-fd-foreground: hsl(0, 0%, 3.9%);
-  --color-fd-muted: hsl(0, 0%, 96.1%);
-  --color-fd-muted-foreground: hsl(0, 0%, 45.1%);
-  --color-fd-popover: hsl(0, 0%, 98%);
-  --color-fd-popover-foreground: hsl(0, 0%, 15.1%);
-  --color-fd-card: hsl(0, 0%, 94.7%);
-  --color-fd-card-foreground: hsl(0, 0%, 3.9%);
-  --color-fd-border: hsla(0, 0%, 80%, 50%);
-  --color-fd-primary: hsl(0, 0%, 9%);
-  --color-fd-primary-foreground: hsl(0, 0%, 98%);
-  --color-fd-secondary: hsl(0, 0%, 93.1%);
-  --color-fd-secondary-foreground: hsl(0, 0%, 9%);
-  --color-fd-accent: hsla(0, 0%, 82%, 50%);
-  --color-fd-accent-foreground: hsl(0, 0%, 9%);
-  --color-fd-ring: hsl(0, 0%, 63.9%);
+  --color-fd-background: hsl(40, 30%, 94%);
+  --color-fd-foreground: hsl(30, 8%, 18%);
+  --color-fd-muted: hsl(40, 20%, 91%);
+  --color-fd-muted-foreground: hsl(30, 8%, 45%);
+  --color-fd-popover: hsl(40, 35%, 97%);
+  --color-fd-popover-foreground: hsl(30, 8%, 18%);
+  --color-fd-card: hsl(40, 25%, 92%);
+  --color-fd-card-foreground: hsl(30, 8%, 18%);
+  --color-fd-border: hsla(35, 18%, 75%, 50%);
+  --color-fd-primary: hsl(30, 10%, 15%);
+  --color-fd-primary-foreground: hsl(40, 30%, 96%);
+  --color-fd-secondary: hsl(40, 20%, 90%);
+  --color-fd-secondary-foreground: hsl(30, 10%, 15%);
+  --color-fd-accent: hsla(40, 20%, 80%, 50%);
+  --color-fd-accent-foreground: hsl(30, 10%, 15%);
+  --color-fd-ring: hsl(35, 15%, 55%);
 }
 
 .dark {
-  --color-fd-background: hsl(0, 0%, 7.04%);
-  --color-fd-foreground: hsl(0, 0%, 92.1%);
-  --color-fd-muted: hsl(0, 0%, 12.9%);
-  --color-fd-muted-foreground: hsl(0, 0%, 60.9%);
-  --color-fd-popover: hsl(0, 0%, 9.8%);
-  --color-fd-popover-foreground: hsl(0, 0%, 92.1%);
-  --color-fd-card: hsl(0, 0%, 9.8%);
-  --color-fd-card-foreground: hsl(0, 0%, 92.1%);
-  --color-fd-border: hsla(0, 0%, 40%, 20%);
+  --color-fd-background: hsl(30, 8%, 9%);          /* pastel black */
+  --color-fd-foreground: hsl(40, 20%, 90%);        /* soft beige white */
+  --color-fd-muted: hsl(30, 8%, 14%);
+  --color-fd-muted-foreground: hsl(35, 10%, 62%);
+  --color-fd-popover: hsl(30, 8%, 12%);
+  --color-fd-popover-foreground: hsl(40, 20%, 90%);
+  --color-fd-card: hsl(30, 8%, 12%);
+  --color-fd-card-foreground: hsl(40, 20%, 90%);
+  --color-fd-border: hsla(35, 15%, 40%, 20%);
   --color-fd-primary: hsl(147, 100%, 39%);
-  --color-fd-primary-foreground: hsl(0, 0%, 7%);
-  --color-fd-secondary: hsl(0, 0%, 12.9%);
-  --color-fd-secondary-foreground: hsl(0, 0%, 92.1%);
-  --color-fd-accent: hsla(0, 0%, 40.9%, 30%);
-  --color-fd-accent-foreground: hsl(0, 0%, 92.1%);
+  --color-fd-primary-foreground: hsl(30, 8%, 9%);
+  --color-fd-secondary: hsl(30, 8%, 14%);
+  --color-fd-secondary-foreground: hsl(40, 20%, 90%);
+  --color-fd-accent: hsla(35, 15%, 40%, 30%);
+  --color-fd-accent-foreground: hsl(40, 20%, 90%);
   --color-fd-ring: hsl(147, 100%, 39%);
 }
+
 :root {
   --fd-layout-width: 110rem;
 }
@@ -107,4 +107,4 @@ code, pre {
 
 #nd-toc {
   font-size: 0.8rem;
-}
+                          }
