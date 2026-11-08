@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     images: 'https://lunarfrost.neocities.org/assets/bg.png',
   },
 };
+
 const componentEmbed = {
   component: {
     type: 17,
