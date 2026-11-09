@@ -48,8 +48,6 @@ export function embedJsonUrl(slugs: string[] = []) {
 }
 
 export function buildEmbed(page: NonNullable<ReturnType<typeof source.getPage>>) {
-  const trail = buildBreadcrumbTrail(page).map((s) => s.title);
-  const breadcrumb = ['Omnicord', ...trail].join(' > ');
   const link = `${SITE}${page.url}`;
   const description = (page.data.description ?? '').slice(0, 400);
   const image = new URL(getPageImageUrl(page).url, SITE).toString();
@@ -61,10 +59,11 @@ export function buildEmbed(page: NonNullable<ReturnType<typeof source.getPage>>)
       components: [
         {
           type: 10,
-          content:
-            `-# <:admin:1568888770546372649>  ${breadcrumb}\n` +
-            `<:docs:1569000806932287568>[Omnicord Documentation - ${page.data.title}](${link})\n` +
-            description,
+          content: `<:docs:1569000806932287568>[Omnicord Documentation - ${page.data.title}](${link})\n${description}`,
+        },
+        {
+          type: 12,
+          items: [{ media: { url: image } }],
         },
         { type: 14, spacing: 1 },
         {
@@ -72,7 +71,6 @@ export function buildEmbed(page: NonNullable<ReturnType<typeof source.getPage>>)
           content:
             '-# <:discordlogo:1568996206338904128>[Support](https://discord.gg/bHDYB6MW5Y) • <:kofi:1568997776635727923>[Donate](https://ko-fi.com/omnicord)',
         },
-        { type: 12, items: [{ media: { url: image } }] },
       ],
     },
   };
