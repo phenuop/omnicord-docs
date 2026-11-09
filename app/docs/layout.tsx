@@ -7,7 +7,7 @@ export default function Layout({ children }: LayoutProps<'/docs'>) {
     <DocsLayout
       tree={source.pageTree}
       {...baseOptions()}
-      tabMode="navbar"
+      sidebar={{ tabs: false }}
       nav={{ ...baseOptions().nav, mode: 'top' }}
     >
       {children}

@@ -44,7 +44,7 @@ export function buildBreadcrumbTrail(
 }
 
 export function embedJsonUrl(slugs: string[] = []) {
-  return `${SITE}/embeds.json/docs${slugs.length ? '/' + slugs.join('/') : ''}`;
+  return `${SITE}/embed${slugs.length ? '/' + slugs.join('/') : ''}/data.json`;
 }
 
 export function buildEmbed(page: NonNullable<ReturnType<typeof source.getPage>>) {
