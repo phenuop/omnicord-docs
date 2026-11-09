@@ -1,6 +1,8 @@
 {
   "title": "All Commands",
   "icon": "Terminal",
+  "defaultOpen": true,
+  "collapsible": false,
   "pages": [
     "index",
     "combat",

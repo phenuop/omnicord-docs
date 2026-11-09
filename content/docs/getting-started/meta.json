@@ -1,4 +1,6 @@
 ﻿{
   "title": "Getting Started",
-  "icon": "Notebook"
+  "icon": "Notebook",
+  "defaultOpen": true,
+  "collapsible": false
 }

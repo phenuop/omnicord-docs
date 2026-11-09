@@ -98,3 +98,28 @@ html.dark{
 --color-fd-accent-foreground:hsl(42,50%,90%);
 --color-fd-ring:hsl(147,100%,39%)}
 
+/* background for the glass to blur */
+body {
+  background-image:
+    radial-gradient(40rem 30rem at 0% 0%, hsla(210, 100%, 60%, 0.22), transparent 60%),
+    radial-gradient(36rem 28rem at 100% 20%, hsla(195, 100%, 55%, 0.18), transparent 60%),
+    radial-gradient(40rem 30rem at 30% 100%, hsla(225, 100%, 65%, 0.16), transparent 60%);
+  background-attachment: fixed;
+}
+
+/* glass panels */
+#nd-sidebar,
+#nd-toc {
+  background: hsla(210, 90%, 65%, 0.12) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  border-color: hsla(210, 100%, 80%, 0.35) !important;
+  box-shadow: inset 0 1px 0 hsla(0, 0%, 100%, 0.35), 0 8px 32px hsla(215, 80%, 40%, 0.12);
+}
+
+html.dark #nd-sidebar,
+html.dark #nd-toc {
+  background: hsla(215, 80%, 45%, 0.14) !important;
+  border-color: hsla(210, 100%, 70%, 0.2) !important;
+  box-shadow: inset 0 1px 0 hsla(0, 0%, 100%, 0.08), 0 8px 32px hsla(215, 90%, 20%, 0.35);
+}

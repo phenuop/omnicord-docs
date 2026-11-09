@@ -10,37 +10,37 @@ export function buildBreadcrumbTrail(
 ): Segment[] {
   if (!page) return [];
 
-  const segments: Segment[] = [];
-  const tree = source.pageTree;
-  let nodes: any[] = tree.children;
-  const urlParts = page.url.split('/').filter(Boolean);
+  const folderUrl = (n: any): string | undefined =>
+    n.index?.url ??
+    n.children?.find(
+      (c: any) => c.type === 'page' && String(c.$id ?? '').endsWith('index.mdx')
+    )?.url;
 
-  for (let i = 0; i < urlParts.length; i++) {
-    const currentPart = '/' + urlParts.slice(0, i + 1).join('/');
-
-    const match = nodes.find(
-      (n: any) =>
-        n.url === currentPart ||
-        n.$ref?.folder === urlParts.slice(0, i + 1).join('/')
-    );
-
-    if (match) {
-      segments.push({
-        title: match.name,
-        url: i === urlParts.length - 1 ? undefined : match.url,
-      });
-      if (match.children) nodes = match.children;
+  const walk = (nodes: any[], trail: Segment[]): Segment[] | null => {
+    for (const n of nodes) {
+      if (n.type === 'page' && n.url === page.url) {
+        return [...trail, { title: page.data.title }];
+      }
+      if (n.type === 'folder') {
+        const found = walk(n.children ?? [], [
+          ...trail,
+          { title: String(n.name), url: folderUrl(n) },
+        ]);
+        if (found) return found;
+      }
     }
-  }
-  if (segments.length === 0) {
-    return [{ title: page.data.title }];
-  }
-  const last = segments[segments.length - 1];
-  if (last.title !== page.data.title) {
-    segments[segments.length - 1] = { title: page.data.title };
-  }
+    return null;
+  };
 
-  return segments;
+  const result = walk(source.pageTree.children as any[], []);
+  if (!result) return [{ title: page.data.title }];
+
+  
+  const last = result[result.length - 1];
+  const prev = result[result.length - 2];
+  if (prev && prev.title === last.title) result.pop();
+  result[result.length - 1] = { title: last.title };
+  return result;
 }
 
 export function embedJsonUrl(slugs: string[] = []) {
